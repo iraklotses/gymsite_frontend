@@ -1,3 +1,5 @@
+const API_URL = "https://gym-management-backend.vercel.app"; // Backend URL
+
 document.getElementById("loginForm").addEventListener("submit", async function(e) {
     e.preventDefault();
     
