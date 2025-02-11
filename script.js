@@ -1,5 +1,7 @@
 const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
+console.log("Το script.js φορτώθηκε!");
+
 document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("loginForm")) {
         setupLogin();
