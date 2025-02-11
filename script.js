@@ -87,11 +87,19 @@ function logout() {
     window.location.href = "login.html";
 }
 
-// 📌 Φόρτωση Υπηρεσιών
+// 📌 Φόρτωση Υπηρεσιών με debugging
 async function loadServices() {
     try {
+        console.log("🔄 Ζητάμε υπηρεσίες από:", `${API_URL}/services`);
         const response = await fetch(`${API_URL}/services`);
+        console.log("📩 Απάντηση από server:", response);
+
+        if (!response.ok) {
+            throw new Error(`Server returned ${response.status}`);
+        }
+
         const services = await response.json();
+        console.log("✅ Ληφθείσες υπηρεσίες:", services);
 
         const servicesList = document.getElementById("servicesList");
         servicesList.innerHTML = "";
@@ -113,6 +121,8 @@ async function loadServices() {
         console.error("❌ Σφάλμα κατά τη φόρτωση των υπηρεσιών:", error);
         document.getElementById("servicesList").innerHTML = "<li>⚠️ Αποτυχία φόρτωσης!</li>";
     }
+}
+
 }
 
 
