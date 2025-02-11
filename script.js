@@ -42,7 +42,10 @@ function setupLogin() {
 // 🔹 Συνάρτηση για το Προφίλ (Dashboard)
 function loadProfile() {
     const token = localStorage.getItem("token");
+    console.log("📌 Token που βρέθηκε:", token);
+
     if (!token) {
+        console.warn("⚠️ Δεν υπάρχει token. Επιστροφή στο login.");
         window.location.href = "login.html";
         return;
     }
@@ -51,17 +54,24 @@ function loadProfile() {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log("📌 Απάντηση από API:", response);
+        return response.json();
+    })
     .then(data => {
+        console.log("📌 Δεδομένα που επιστράφηκαν:", data);
+
         if (data.error) {
+            console.error("❌ Σφάλμα API:", data.error);
             alert("Σφάλμα φόρτωσης προφίλ!");
             window.location.href = "login.html";
         } else {
             document.getElementById("userEmail").innerText = data.email;
         }
     })
-    .catch(error => console.error("Σφάλμα:", error));
+    .catch(error => console.error("❌ Σφάλμα:", error));
 }
+
 
 // 🔹 Συνάρτηση για το Logout
 function setupLogout() {
