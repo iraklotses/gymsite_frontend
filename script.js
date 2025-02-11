@@ -2,47 +2,6 @@ const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
 console.log("Το script.js φορτώθηκε!");
 
-// 📌 Φόρτωση υπηρεσιών και ανακοινώσεων στην αρχική σελίδα
-document.addEventListener("DOMContentLoaded", () => {
-    loadServices();
-    loadAnnouncements();
-});
-
-// 🔥 Φόρτωση Υπηρεσιών
-async function loadServices() {
-    try {
-        const response = await fetch(`${API_URL}/services`);
-        const services = await response.json();
-        
-        const servicesList = document.getElementById("servicesList");
-        servicesList.innerHTML = "";
-        services.forEach(service => {
-            const li = document.createElement("li");
-            li.textContent = service.name;
-            servicesList.appendChild(li);
-        });
-    } catch (error) {
-        console.error("Σφάλμα φόρτωσης υπηρεσιών:", error);
-    }
-}
-
-// 🔥 Φόρτωση Ανακοινώσεων
-async function loadAnnouncements() {
-    try {
-        const response = await fetch(`${API_URL}/announcements`);
-        const announcements = await response.json();
-        
-        const announcementsList = document.getElementById("announcementsList");
-        announcementsList.innerHTML = "";
-        announcements.forEach(announcement => {
-            const li = document.createElement("li");
-            li.textContent = announcement.title;
-            announcementsList.appendChild(li);
-        });
-    } catch (error) {
-        console.error("Σφάλμα φόρτωσης ανακοινώσεων:", error);
-    }
-}
 
 // 📌 LOGIN FUNCTION
 document.addEventListener("DOMContentLoaded", () => {
