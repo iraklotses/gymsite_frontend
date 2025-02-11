@@ -32,6 +32,8 @@ async function loadProfile() {
         window.location.href = "login.html"; // Αν δεν υπάρχει token, επιστροφή στο login
         return;
     }
+    
+console.log("📡 Fetching profile from:", `${API_URL}/profile`);
 
     try {
         const response = await fetch(`${API_URL}/profile`, {
