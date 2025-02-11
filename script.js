@@ -2,85 +2,86 @@ const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
 console.log("Το script.js φορτώθηκε!");
 
-document.addEventListener("DOMContentLoaded", function () {
-    if (document.getElementById("loginForm")) {
-        setupLogin();
+// 📌 LOGIN FUNCTION
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+    
+    if (loginForm) {
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password }),
+                    mode: "cors"
+                });
+
+                const result = await response.json();
+                console.log("Απάντηση από server:", result);
+
+                if (response.ok) {
+                    localStorage.setItem("token", result.token);
+                    alert("✅ Επιτυχής σύνδεση!");
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert("❌ Λάθος στοιχεία!");
+                }
+            } catch (error) {
+                console.error("Σφάλμα στο fetch:", error);
+                alert("⚠️ Πρόβλημα σύνδεσης στον server!");
+            }
+        });
     }
 
-    if (document.getElementById("dashboardContent")) {
-        loadProfile();
-    }
-
-    if (document.getElementById("logoutButton")) {
-        setupLogout();
+    // 📌 DASHBOARD FUNCTION (ΠΡΟΦΙΛ ΧΡΗΣΤΗ)
+    if (window.location.pathname.includes("dashboard.html")) {
+        loadUserProfile();
     }
 });
 
-// 🔹 Συνάρτηση για το Login
-function setupLogin() {
-    document.getElementById("loginForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+// 📌 PROFILE FUNCTION (Dashboard)
+async function loadUserProfile() {
+    console.log("🔄 Φόρτωση προφίλ...");
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const response = await fetch("https://gymsite-six.vercel.app/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-        document.getElementById("message").innerText = "✅ Επιτυχής σύνδεση!";
-        localStorage.setItem("user_id", result.user_id); // 🔹 Αποθήκευση του user_id
-        window.location.href = "dashboard.html";
-    } else {
-        document.getElementById("message").innerText = "❌ Λάθος στοιχεία!";
-    }
-});
-
-}
-
-// 🔹 Συνάρτηση για το Προφίλ (Dashboard)
-function loadProfile() {
     const token = localStorage.getItem("token");
-    console.log("📌 Token που βρέθηκε:", token);
-
     if (!token) {
-        console.warn("⚠️ Δεν υπάρχει token. Επιστροφή στο login.");
+        alert("⚠️ Δεν είστε συνδεδεμένος!");
         window.location.href = "login.html";
         return;
     }
 
-    fetch(`${API_URL}/profile`, {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    })
-    .then(response => {
-        console.log("📌 Απάντηση από API:", response);
-        return response.json();
-    })
-    .then(data => {
-        console.log("📌 Δεδομένα που επιστράφηκαν:", data);
+    try {
+        const response = await fetch(`${API_URL}/profile`, {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+            mode: "cors"
+        });
 
-        if (data.error) {
-            console.error("❌ Σφάλμα API:", data.error);
-            alert("Σφάλμα φόρτωσης προφίλ!");
-            window.location.href = "login.html";
+        const userData = await response.json();
+
+        if (response.ok) {
+            console.log("✅ Ελήφθη το προφίλ:", userData);
+            document.getElementById("userEmail").innerText = userData.email;
         } else {
-            document.getElementById("userEmail").innerText = data.email;
+            console.error("❌ Σφάλμα στο profile:", userData);
+            alert("⚠️ Σφάλμα στη φόρτωση προφίλ!");
+            window.location.href = "login.html";
         }
-    })
-    .catch(error => console.error("❌ Σφάλμα:", error));
+    } catch (error) {
+        console.error("Σφάλμα κατά τη φόρτωση του προφίλ:", error);
+        alert("⚠️ Πρόβλημα επικοινωνίας με τον server!");
+        window.location.href = "login.html";
+    }
 }
 
-
-// 🔹 Συνάρτηση για το Logout
-function setupLogout() {
-    document.getElementById("logoutButton").addEventListener("click", function () {
-        localStorage.removeItem("token");
-        window.location.href = "login.html";
-    });
+// 📌 LOGOUT FUNCTION
+function logout() {
+    localStorage.removeItem("token");
+    alert("👋 Αποσυνδεθήκατε!");
+    window.location.href = "login.html";
 }
