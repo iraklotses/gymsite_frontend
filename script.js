@@ -123,9 +123,6 @@ async function loadServices() {
     }
 }
 
-}
-
-
 // 📌 Φόρτωση Ανακοινώσεων
 async function loadAnnouncements() {
     try {
