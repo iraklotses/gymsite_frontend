@@ -1,4 +1,4 @@
-const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
+const API_URL = "https://gymsite-backend.vercel.app"; // Backend URL
 
 document.getElementById("loginForm").addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -6,22 +6,24 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    const response = await fetch("https://gymsite-six.vercel.app/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-    });
+    try {
+        const response = await fetch(`${API_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
 
-    window.location.href = "/dashboard.html"; // ή "/admin.html"
+        const result = await response.json();
 
-    
-    const result = await response.json();
-
-    if (response.ok) {
-        document.getElementById("message").innerText = "✅ Επιτυχής σύνδεση!";
-        localStorage.setItem("token", result.token);
-        window.location.href = "dashboard.html";
-    } else {
-        document.getElementById("message").innerText = "❌ Λάθος στοιχεία!";
+        if (response.ok) {
+            document.getElementById("message").innerText = "✅ Επιτυχής σύνδεση!";
+            localStorage.setItem("token", result.token); // Αν έχεις JWT token, αποθήκευσε το
+            window.location.href = "dashboard.html"; // ή "admin.html" αν είναι admin
+        } else {
+            document.getElementById("message").innerText = "❌ Λάθος στοιχεία!";
+        }
+    } catch (err) {
+        console.error("Σφάλμα:", err);
+        document.getElementById("message").innerText = "❌ Σφάλμα στον server!";
     }
 });
