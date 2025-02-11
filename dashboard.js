@@ -3,6 +3,8 @@ const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 // Παίρνουμε το token από το localStorage
 const token = localStorage.getItem("token");
 
+console.log("Το dashboard.js φορτώθηκε!");
+
 if (!token) {
     window.location.href = "index.html"; // Αν δεν υπάρχει token, γύρνα στο login
 }
