@@ -25,34 +25,39 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 });
 
 // 🟢 Load profile function
+// Φόρτωση προφίλ στη σελίδα Dashboard
 async function loadProfile() {
     const token = localStorage.getItem("token");
-    
     if (!token) {
-        window.location.href = "login.html"; // Αν δεν υπάρχει token, επιστροφή στο login
+        console.error("❌ Δεν υπάρχει αποθηκευμένο token!");
+        window.location.href = "login.html"; // Επιστροφή στο login αν δεν υπάρχει token
         return;
     }
-    
-console.log("📡 Fetching profile from:", `${API_URL}/profile`);
 
+    console.log("📡 Fetching profile from:", `${API_URL}/profile`);
+    
     try {
         const response = await fetch(`${API_URL}/profile`, {
-        method: "GET",  // ✅ Διόρθωση από POST σε GET
-        headers: { "Authorization": localStorage.getItem("token") }
+            method: "GET",
+            headers: { "Authorization": token }
         });
 
-        const result = await response.json();
-
-        if (response.ok) {
-            document.getElementById("emailDisplay").innerText = `Email: ${result.email}`;
-        } else {
-            document.getElementById("emailDisplay").innerText = "❌ Σφάλμα φόρτωσης!";
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
+        const userData = await response.json();
+        console.log("✅ Προφίλ χρήστη:", userData);
+        
+        document.getElementById("user-email").innerText = userData.email;
     } catch (error) {
-        console.error("Σφάλμα:", error);
-        document.getElementById("emailDisplay").innerText = "❌ Σφάλμα σύνδεσης!";
+        console.error("❌ Σφάλμα κατά τη φόρτωση προφίλ:", error);
+        document.getElementById("user-email").innerText = "Σφάλμα φόρτωσης!";
     }
 }
+
+// Όταν φορτώνει το dashboard, καλούμε τη συνάρτηση
+document.addEventListener("DOMContentLoaded", loadProfile);
 
 
 // 🟢 Logout function
