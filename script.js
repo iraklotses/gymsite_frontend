@@ -35,8 +35,8 @@ async function loadProfile() {
 
     try {
         const response = await fetch(`${API_URL}/profile`, {
-            method: "GET",
-            headers: { "Authorization": token } // Στέλνουμε το token για έλεγχο
+        method: "GET",  // ✅ Διόρθωση από POST σε GET
+        headers: { "Authorization": localStorage.getItem("token") }
         });
 
         const result = await response.json();
