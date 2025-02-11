@@ -3,13 +3,15 @@ const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 console.log("📌 Το dashboard.js φορτώθηκε!");
 
 // ✅ Ελέγχει αν υπάρχει αποθηκευμένο user_id
+
 const userId = localStorage.getItem("user_id");
+console.log("🔍 Βρέθηκε user_id:", userId);
+
 if (!userId) {
-    console.warn("🚨 Δεν βρέθηκε user_id! Μεταφορά στην αρχική σελίδα...");
-    window.location.href = "index.html";
-} else {
-    console.log("✅ Βρέθηκε user_id:", userId);
+    console.error("❌ Δεν βρέθηκε user_id! Μεταφορά στην αρχική σελίδα...");
+    window.location.href = "index.html"; // Σε γυρνάει πίσω στο login
 }
+
 
 // 🔥 Ζητάμε τα δεδομένα του χρήστη από το backend
 fetch(`https://gymsite-six.vercel.app/profile?id=${userId}`)
