@@ -1,4 +1,4 @@
-const API_URL = "https://gymsite-backend.vercel.app"; // Backend URL
+const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
 document.getElementById("loginForm").addEventListener("submit", async function(e) {
     e.preventDefault();
