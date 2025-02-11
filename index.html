@@ -8,7 +8,28 @@
 </head>
 <body>
     <h1>Καλώς ήρθατε στο Gym Management System 💪</h1>
-    <a href="login.html">Σύνδεση</a>
+    
+    <h2>Υπηρεσίες</h2>
+    <ul id="servicesList">Φόρτωση...</ul>
+
+    <h2>Ανακοινώσεις</h2>
+    <ul id="announcementsList">Φόρτωση...</ul>
+
+    <h2>Σύνδεση Χρήστη</h2>
+    <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        
+        <label for="password">Κωδικός:</label>
+        <input type="password" id="password" required>
+        
+        <button type="submit">Σύνδεση</button>
+    </form>
+
+    <p id="loginMessage"></p>
+
     <a href="dashboard.html">Προβολή Διαχείρισης</a>
+
+    <script src="script.js"></script>
 </body>
 </html>
