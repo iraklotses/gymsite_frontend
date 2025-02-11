@@ -1,40 +1,32 @@
 const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
-// Παίρνουμε το token από το localStorage
+console.log("📌 Το dashboard.js φορτώθηκε!");
+
+// ✅ Ελέγχει αν υπάρχει αποθηκευμένο token
 const token = localStorage.getItem("token");
-
-console.log("Το dashboard.js φορτώθηκε!");
-
 if (!token) {
-    window.location.href = "index.html"; // Αν δεν υπάρχει token, γύρνα στο login
+    console.warn("🚨 Δεν βρέθηκε token! Μεταφορά στην αρχική σελίδα...");
+    window.location.href = "index.html"; // Αν δεν υπάρχει token, επιστροφή στο login
+} else {
+    console.log("✅ Βρέθηκε token:", token);
 }
 
-async function fetchProfile() {
-    try {
-        const response = await fetch(`${API_URL}/profile`, {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            document.getElementById("username").innerText = data.full_name;
-            document.getElementById("email").innerText = data.email;
-        } else {
-            console.error("Σφάλμα:", data.error);
-            window.location.href = "index.html"; // Αν υπάρχει σφάλμα, επιστρέφει στο login
-        }
-    } catch (err) {
-        console.error("Σφάλμα στον server:", err);
+// 🔥 Ζητάμε τα δεδομένα του χρήστη από το backend
+fetch("https://gymsite-six.vercel.app/profile", {
+    method: "GET",
+    headers: {
+        "Authorization": `Bearer ${token}`, // 🔐 Στέλνουμε το token για αυθεντικοποίηση
+        "Content-Type": "application/json"
     }
-}
-
-// Φόρτωσε τα δεδομένα του χρήστη
-fetchProfile();
-
-// Logout button
-document.getElementById("logout").addEventListener("click", () => {
-    localStorage.removeItem("token"); // Διαγραφή token
-    window.location.href = "index.html"; // Επιστροφή στο login
-});
+})
+.then(response => response.json())
+.then(data => {
+    if (data.error) {
+        console.error("❌ Σφάλμα στο profile:", data.error);
+        alert("❌ Πρόβλημα με τη φόρτωση των δεδομένων.");
+    } else {
+        console.log("ℹ️ Δεδομένα χρήστη:", data);
+        document.getElementById("email").innerText = data.email || "Άγνωστο email";
+    }
+})
+.catch(err => console.error("❌ Σφάλμα στο fetch:", err));
