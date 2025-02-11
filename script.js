@@ -36,7 +36,7 @@ async function loadProfile() {
     try {
         const response = await fetch(`${API_URL}/profile`, {
             method: "GET",
-            headers: { "Authorization": token }
+            headers: { "Authorization": token } // Στέλνουμε το token για έλεγχο
         });
 
         const result = await response.json();
@@ -48,8 +48,10 @@ async function loadProfile() {
         }
     } catch (error) {
         console.error("Σφάλμα:", error);
+        document.getElementById("emailDisplay").innerText = "❌ Σφάλμα σύνδεσης!";
     }
 }
+
 
 // 🟢 Logout function
 function logout() {
