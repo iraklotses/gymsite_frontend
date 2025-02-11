@@ -12,6 +12,9 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         body: JSON.stringify({ email, password })
     });
 
+    window.location.href = "/dashboard.html"; // ή "/admin.html"
+
+    
     const result = await response.json();
 
     if (response.ok) {
