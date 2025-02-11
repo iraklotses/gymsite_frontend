@@ -103,7 +103,10 @@ async function loadServices() {
 
         services.forEach(service => {
             const li = document.createElement("li");
-            li.textContent = service.name;
+            li.innerHTML = `<strong>${service.name}</strong> <br>
+                            ID: ${service.id} <br>
+                            Περιγραφή: ${service.description} <br>
+                            Τιμή: €${service.price}`;
             servicesList.appendChild(li);
         });
     } catch (error) {
@@ -111,6 +114,7 @@ async function loadServices() {
         document.getElementById("servicesList").innerHTML = "<li>⚠️ Αποτυχία φόρτωσης!</li>";
     }
 }
+
 
 // 📌 Φόρτωση Ανακοινώσεων
 async function loadAnnouncements() {
