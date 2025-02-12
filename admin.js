@@ -33,20 +33,20 @@ async function loadUsers() {
 // 🏋️ Φόρτωση Γυμναστών
 async function loadTrainers() {
     const response = await fetch(`${API_URL}/trainers`);
-    const trainers = await response.json();
-    
-    if (!Array.isArray(trainers)) {
-        console.error("Invalid trainers data:", trainers);
+    const data = await response.json();
+
+    if (!Array.isArray(data)) {
+        console.error("Invalid trainers data:", data);
         return;
     }
 
     const table = document.getElementById("trainersTable");
-    table.innerHTML = ""; // Καθαρισμός πριν την ενημέρωση
+    table.innerHTML = "";
 
-    trainers.forEach(trainer => {
+    data.forEach(trainer => {
         const row = `<tr>
             <td>${trainer.id}</td>
-            <td>${trainer.full_name}</td>  <!-- Αντικαταστάθηκε το name -->
+            <td>${trainer.full_name}</td>
             <td>${trainer.specialty}</td>
             <td>
                 <button onclick="editTrainer(${trainer.id})">✏️</button>
@@ -57,26 +57,27 @@ async function loadTrainers() {
     });
 }
 
+
 // 📅 Φόρτωση Προγραμμάτων
 async function loadPrograms() {
     const response = await fetch(`${API_URL}/programs`);
-    const programs = await response.json();
+    const data = await response.json();
 
-    if (!Array.isArray(programs)) {
-        console.error("Invalid programs data:", programs);
+    if (!Array.isArray(data)) {
+        console.error("Invalid programs data:", data);
         return;
     }
 
     const table = document.getElementById("programsTable");
-    table.innerHTML = ""; // Καθαρισμός πριν την ενημέρωση
+    table.innerHTML = "";
 
-    programs.forEach(program => {
+    data.forEach(program => {
         const row = `<tr>
             <td>${program.name}</td>
             <td>${program.trainer_id}</td>
             <td>${program.day_of_week}</td>
             <td>${program.time}</td>
-            <td>${program.max_capacity}</td> <!-- Αντικαταστάθηκε το capacity -->
+            <td>${program.max_capacity}</td>
             <td>
                 <button onclick="editProgram(${program.id})">✏️</button>
                 <button onclick="deleteProgram(${program.id})">🗑️</button>
