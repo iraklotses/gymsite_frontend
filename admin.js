@@ -49,6 +49,25 @@ async function loadTrainers() {
     });
 }
 
+async function loadPrograms() {
+    const response = await fetch(`${API_URL}/programs`);
+    const programs = await response.json();
+    const table = document.getElementById("programsTable");
+
+    programs.forEach(program => {
+        const row = `<tr>
+            <td>${program.name}</td>
+            <td>${program.capacity}</td>
+            <td>
+                <button onclick="editProgram(${program.id})">✏️</button>
+                <button onclick="deleteProgram(${program.id})">🗑️</button>
+            </td>
+        </tr>`;
+        table.innerHTML += row;
+    });
+}
+
+
 // 📅 Προσθήκη Προγράμματος
 function addProgram() {
     const name = prompt("Όνομα προγράμματος:");
