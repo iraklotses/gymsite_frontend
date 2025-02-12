@@ -150,6 +150,29 @@ async function loadAnnouncements() {
     });
 }
 
+function editProgram(id) {
+    console.log(`✏️ Επεξεργασία προγράμματος με ID: ${id}`);
+    alert(`Επεξεργασία προγράμματος με ID: ${id}`);
+    // Εδώ μπορείς να ανοίξεις μια φόρμα για να αλλάξεις τα δεδομένα
+}
+
+function deleteProgram(id) {
+    if (confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτό το πρόγραμμα;")) {
+        console.log(`🗑️ Διαγραφή προγράμματος με ID: ${id}`);
+        
+        fetch(`${API_URL}/programs/${id}`, {
+            method: "DELETE"
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("✅ Πρόγραμμα διαγράφηκε:", data);
+            loadPrograms(); // Επαναφόρτωση των δεδομένων
+        })
+        .catch(error => console.error("❌ Σφάλμα στη διαγραφή:", error));
+    }
+}
+
+
 // ❌ Αποσύνδεση
 function logout() {
     localStorage.removeItem("user_id");
