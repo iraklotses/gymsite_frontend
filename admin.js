@@ -58,6 +58,21 @@ async function loadPrograms() {
     const programs = await response.json();
     const table = document.getElementById("programsTable");
 
+    //ΕΛΕΓΧΟΣ
+fetch("/programs")
+  .then(res => res.json())
+  .then(data => {
+      if (!Array.isArray(data)) {
+          console.error("Invalid programs data:", data);
+          return;
+      }
+      data.forEach(program => {
+          console.log("Πρόγραμμα:", program);
+      });
+  })
+  .catch(err => console.error("Error fetching programs:", err));
+
+
     programs.forEach(program => {
         const row = `<tr>
             <td>${program.name}</td>
