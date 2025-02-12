@@ -173,6 +173,46 @@ function deleteProgram(id) {
     }
 }
 
+function deleteUser(id) {
+    if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτόν τον χρήστη;")) return;
+
+    fetch(`${API_URL}/users/${id}`, { method: "DELETE" })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) throw new Error(data.error);
+            alert("Ο χρήστης διαγράφηκε επιτυχώς!");
+            loadUsers(); // Επαναφόρτωση της λίστας χρηστών
+        })
+        .catch(error => console.error("❌ Σφάλμα στη διαγραφή:", error));
+}
+
+function deleteTrainer(id) {
+    if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτόν τον γυμναστή;")) return;
+
+    fetch(`${API_URL}/trainers/${id}`, { method: "DELETE" })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) throw new Error(data.error);
+            alert("Ο γυμναστής διαγράφηκε επιτυχώς!");
+            loadTrainers(); // Επαναφόρτωση της λίστας γυμναστών
+        })
+        .catch(error => console.error("❌ Σφάλμα στη διαγραφή:", error));
+}
+
+function deleteAnnouncement(id) {
+    if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτήν την ανακοίνωση;")) return;
+
+    fetch(`${API_URL}/announcements/${id}`, { method: "DELETE" })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) throw new Error(data.error);
+            alert("Η ανακοίνωση διαγράφηκε επιτυχώς!");
+            loadAnnouncements(); // Επαναφόρτωση της λίστας ανακοινώσεων
+        })
+        .catch(error => console.error("❌ Σφάλμα στη διαγραφή:", error));
+}
+
+
 
 // ❌ Αποσύνδεση
 function logout() {
