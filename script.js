@@ -24,10 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("Απάντηση από server:", result);
 
                 if (result.success) {
-                    // ✅ Αποθηκεύουμε το user_id
+                    // ✅ Αποθηκεύουμε το user_id και το role
                     localStorage.setItem("user_id", result.user.id);
+                    localStorage.setItem("user_role", result.user.role);
+
                     alert("✅ Επιτυχής σύνδεση!");
-                    window.location.href = "dashboard.html";
+
+                    if (result.user.role === "admin") {
+                        window.location.href = "dashboard.html";
+                    } else {
+                        alert("⚠️ Δεν έχετε πρόσβαση στο διαχειριστικό!");
+                    }
                 } else {
                     alert("❌ Λάθος στοιχεία!");
                 }
@@ -38,10 +45,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 📌 DASHBOARD FUNCTION (ΠΡΟΦΙΛ ΧΡΗΣΤΗ)
+    // 📌 DASHBOARD ACCESS CONTROL
     if (window.location.pathname.includes("dashboard.html")) {
-        loadUserProfile();
+        checkAdminAccess();
     }
+});
+
+// 📌 FUNCTION για έλεγχο διαχειριστή
+function checkAdminAccess() {
+    const role = localStorage.getItem("user_role");
+
+    if (role !== "admin") {
+        alert("❌ Δεν έχετε πρόσβαση στο dashboard!");
+        window.location.href = "index.html";
+    }
+}
 
     // 🔄 Φόρτωση Υπηρεσιών και Ανακοινώσεων
     loadServices();
@@ -83,6 +101,7 @@ async function loadUserProfile() {
 // 📌 LOGOUT FUNCTION
 function logout() {
     localStorage.removeItem("user_id");
+    localStorage.removeItem("user_role");
     alert("👋 Αποσυνδεθήκατε!");
     window.location.href = "login.html";
 }
