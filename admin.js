@@ -205,20 +205,20 @@ function deleteAnnouncement(id) {
         return;
     }
 
-    if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτήν την ανακοίνωση;")) return;
-
-    fetch(`${API_URL}/announcements/${id}`, { method: "DELETE" })
+    fetch(`${API_URL}/announcements/${id}`, {
+        method: "DELETE"
+    })
     .then(response => {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         return response.json();
     })
-    .then(data => {
-        console.log("✅ Ανακοίνωση διαγράφηκε:", data);
-        alert("Η ανακοίνωση διαγράφηκε επιτυχώς!");
-        loadAnnouncements(); // Επαναφόρτωση
+    .then(() => {
+        console.log(`✅ Ανακοίνωση με ID ${id} διαγράφηκε!`);
+        loadAnnouncements(); // Επαναφόρτωση του πίνακα
     })
     .catch(error => console.error("❌ Σφάλμα στη διαγραφή ανακοίνωσης:", error));
 }
+
 
 
 // ❌ Αποσύνδεση
