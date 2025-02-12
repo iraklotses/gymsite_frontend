@@ -71,6 +71,32 @@ async function loadPrograms() {
     });
 }
 
+function addUser() {
+    const name = prompt("Όνομα χρήστη:");
+    const email = prompt("Email:");
+    const role = prompt("Ρόλος (admin/user):");
+
+    if (name && email && role) {
+        fetch(`${API_URL}/users`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ full_name: name, email, role })
+        }).then(() => loadUsers());
+    }
+}
+
+function addTrainer() {
+    const name = prompt("Όνομα γυμναστή:");
+    const specialty = prompt("Ειδικότητα:");
+
+    if (name && specialty) {
+        fetch(`${API_URL}/trainers`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, specialty })
+        }).then(() => loadTrainers());
+    }
+}
 
 // 📅 Προσθήκη Προγράμματος
 function addProgram() {
