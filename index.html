@@ -28,8 +28,17 @@
 
     <p id="loginMessage"></p>
 
-    <a href="dashboard.html">Προβολή Διαχείρισης</a>
+    <a href="dashboard.html" id="adminLink" style="display: none;">Προβολή Διαχείρισης</a>
 
     <script src="script.js"></script>
+    <script>
+        // Εμφάνιση του συνδέσμου μόνο αν ο χρήστης είναι admin
+        document.addEventListener("DOMContentLoaded", () => {
+            const role = localStorage.getItem("user_role");
+            if (role === "admin") {
+                document.getElementById("adminLink").style.display = "block";
+            }
+        });
+    </script>
 </body>
 </html>
