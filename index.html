@@ -9,29 +9,26 @@
 <body>
     <h1>Καλώς ήρθατε στο Gym Management System 💪</h1>
     
-    <h2>Σύνδεση Χρήστη</h2>
-    <form id="userLoginForm">
-        <label for="userEmail">Email:</label>
-        <input type="email" id="userEmail" required>
-        
-        <label for="userPassword">Κωδικός:</label>
-        <input type="password" id="userPassword" required>
-        
-        <button type="submit">Σύνδεση ως Χρήστης</button>
-    </form>
+    <h2>Υπηρεσίες</h2>
+    <ul id="servicesList">Φόρτωση...</ul>
 
-    <h2>Σύνδεση Διαχειριστή</h2>
-    <form id="adminLoginForm">
-        <label for="adminEmail">Email:</label>
-        <input type="email" id="adminEmail" required>
+    <h2>Ανακοινώσεις</h2>
+    <ul id="announcementsList">Φόρτωση...</ul>
+
+    <h2>Σύνδεση Χρήστη</h2>
+    <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
         
-        <label for="adminPassword">Κωδικός:</label>
-        <input type="password" id="adminPassword" required>
+        <label for="password">Κωδικός:</label>
+        <input type="password" id="password" required>
         
-        <button type="submit">Σύνδεση ως Διαχειριστής</button>
+        <button type="submit">Σύνδεση</button>
     </form>
 
     <p id="loginMessage"></p>
+
+    <a href="dashboard.html">Προβολή Διαχείρισης</a>
 
     <script src="script.js"></script>
 </body>
