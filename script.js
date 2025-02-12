@@ -64,7 +64,7 @@ function checkAdminAccess() {
     // 🔄 Φόρτωση Υπηρεσιών και Ανακοινώσεων
     loadServices();
     loadAnnouncements();
-});
+
 
 // 📌 PROFILE FUNCTION (Dashboard)
 async function loadUserProfile() {
