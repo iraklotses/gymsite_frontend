@@ -13,6 +13,7 @@ async function loadUsers() {
     const response = await fetch(`${API_URL}/users`);
     const users = await response.json();
     const table = document.getElementById("usersTable");
+    table.innerHTML = ""; // Καθαρισμός πριν την ενημέρωση
 
     users.forEach(user => {
         const row = `<tr>
@@ -33,15 +34,19 @@ async function loadUsers() {
 async function loadTrainers() {
     const response = await fetch(`${API_URL}/trainers`);
     const trainers = await response.json();
+    
     if (!Array.isArray(trainers)) {
         console.error("Invalid trainers data:", trainers);
         return;
     }
+
     const table = document.getElementById("trainersTable");
+    table.innerHTML = ""; // Καθαρισμός πριν την ενημέρωση
+
     trainers.forEach(trainer => {
         const row = `<tr>
             <td>${trainer.id}</td>
-            <td>${trainer.name}</td>
+            <td>${trainer.full_name}</td>  <!-- Αντικαταστάθηκε το name -->
             <td>${trainer.specialty}</td>
             <td>
                 <button onclick="editTrainer(${trainer.id})">✏️</button>
@@ -52,56 +57,26 @@ async function loadTrainers() {
     });
 }
 
-
+// 📅 Φόρτωση Προγραμμάτων
 async function loadPrograms() {
-    try {
-        const response = await fetch(`${API_URL}/programs`);
-        const data = await response.json();
+    const response = await fetch(`${API_URL}/programs`);
+    const programs = await response.json();
 
-        if (!Array.isArray(data)) {
-            console.error("❌ Invalid programs data:", data);
-            return;
-        }
-
-        const table = document.getElementById("programsTable");
-        table.innerHTML = ""; // Καθαρισμός πίνακα
-
-        data.forEach(program => {
-            const row = `<tr>
-                <td>${program.name}</td>
-                <td>${program.capacity}</td>
-                <td>
-                    <button onclick="editProgram(${program.id})">✏️</button>
-                    <button onclick="deleteProgram(${program.id})">🗑️</button>
-                </td>
-            </tr>`;
-            table.innerHTML += row;
-        });
-    } catch (error) {
-        console.error("❌ Error fetching programs:", error);
+    if (!Array.isArray(programs)) {
+        console.error("Invalid programs data:", programs);
+        return;
     }
-}
 
-
-    //ΕΛΕΓΧΟΣ
-fetch("/programs")
-  .then(res => res.json())
-  .then(data => {
-      if (!Array.isArray(data)) {
-          console.error("Invalid programs data:", data);
-          return;
-      }
-      data.forEach(program => {
-          console.log("Πρόγραμμα:", program);
-      });
-  })
-  .catch(err => console.error("Error fetching programs:", err));
-
+    const table = document.getElementById("programsTable");
+    table.innerHTML = ""; // Καθαρισμός πριν την ενημέρωση
 
     programs.forEach(program => {
         const row = `<tr>
             <td>${program.name}</td>
-            <td>${program.capacity}</td>
+            <td>${program.trainer_id}</td>
+            <td>${program.day_of_week}</td>
+            <td>${program.time}</td>
+            <td>${program.max_capacity}</td> <!-- Αντικαταστάθηκε το capacity -->
             <td>
                 <button onclick="editProgram(${program.id})">✏️</button>
                 <button onclick="deleteProgram(${program.id})">🗑️</button>
@@ -109,7 +84,9 @@ fetch("/programs")
         </tr>`;
         table.innerHTML += row;
     });
+}
 
+// ➕ Προσθήκη Χρήστη
 function addUser() {
     const name = prompt("Όνομα χρήστη:");
     const email = prompt("Email:");
@@ -119,11 +96,12 @@ function addUser() {
         fetch(`${API_URL}/users`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ full_name: name, email, role })
+            body: JSON.stringify({ full_name: name, email, role }) // Σωστό όνομα πεδίου
         }).then(() => loadUsers());
     }
 }
 
+// ➕ Προσθήκη Γυμναστή
 function addTrainer() {
     const name = prompt("Όνομα γυμναστή:");
     const specialty = prompt("Ειδικότητα:");
@@ -132,31 +110,34 @@ function addTrainer() {
         fetch(`${API_URL}/trainers`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, specialty })
+            body: JSON.stringify({ full_name: name, specialty }) // Σωστό όνομα πεδίου
         }).then(() => loadTrainers());
     }
 }
 
-// 📅 Προσθήκη Προγράμματος
+// ➕ Προσθήκη Προγράμματος
 function addProgram() {
     const name = prompt("Όνομα προγράμματος:");
-    const capacity = prompt("Μέγιστη χωρητικότητα:");
+    const trainer_id = prompt("ID γυμναστή:");
+    const day_of_week = prompt("Ημέρα εβδομάδας:");
+    const time = prompt("Ώρα (HH:MM:SS):");
+    const max_capacity = prompt("Μέγιστη χωρητικότητα:");
 
-    if (name && capacity) {
+    if (name && trainer_id && day_of_week && time && max_capacity) {
         fetch(`${API_URL}/programs`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, capacity })
+            body: JSON.stringify({ name, trainer_id, day_of_week, time, max_capacity }) // Σωστά πεδία
         }).then(() => loadPrograms());
     }
 }
 
-// 📣 Προσθήκη Ανακοίνωσης
+// 📣 Φόρτωση Ανακοινώσεων
 async function loadAnnouncements() {
     const response = await fetch(`${API_URL}/announcements`);
     const announcements = await response.json();
     const list = document.getElementById("announcementsList");
-    list.innerHTML = "";
+    list.innerHTML = ""; // Καθαρισμός πριν την ενημέρωση
 
     announcements.forEach(announcement => {
         const item = `<li>
@@ -166,7 +147,6 @@ async function loadAnnouncements() {
         list.innerHTML += item;
     });
 }
-
 
 // ❌ Αποσύνδεση
 function logout() {
