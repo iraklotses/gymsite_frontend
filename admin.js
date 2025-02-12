@@ -159,6 +159,7 @@ function editProgram(id) {
 function deleteProgram(id) {
     if (confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτό το πρόγραμμα;")) {
         console.log(`🗑️ Διαγραφή προγράμματος με ID: ${id}`);
+        console.log("🔗 API URL:", `${API_URL}/programs/${id}`);
         
         fetch(`${API_URL}/programs/${id}`, {
             method: "DELETE"
