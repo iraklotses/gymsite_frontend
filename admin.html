@@ -8,39 +8,48 @@
 </head>
 <body>
     <h1>🔧 Πίνακας Διαχείρισης</h1>
-    
     <button onclick="logout()">Αποσύνδεση</button>
 
     <h2>Διαχείριση Χρηστών</h2>
-    <table id="usersTable">
-        <tr>
-            <th>ID</th>
-            <th>Όνομα</th>
-            <th>Email</th>
-            <th>Ρόλος</th>
-            <th>Ενέργειες</th>
-        </tr>
-        <!-- Δεδομένα από backend -->
+    <button onclick="addUser()">➕ Προσθήκη Χρήστη</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Όνομα</th>
+                <th>Email</th>
+                <th>Ρόλος</th>
+                <th>Ενέργειες</th>
+            </tr>
+        </thead>
+        <tbody id="usersTable"></tbody>
     </table>
 
     <h2>Διαχείριση Γυμναστών</h2>
-    <table id="trainersTable">
-        <tr>
-            <th>ID</th>
-            <th>Όνομα</th>
-            <th>Ειδικότητα</th>
-            <th>Ενέργειες</th>
-        </tr>
+    <button onclick="addTrainer()">➕ Προσθήκη Γυμναστή</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Όνομα</th>
+                <th>Ειδικότητα</th>
+                <th>Ενέργειες</th>
+            </tr>
+        </thead>
+        <tbody id="trainersTable"></tbody>
     </table>
 
     <h2>Διαχείριση Προγραμμάτων</h2>
     <button onclick="addProgram()">➕ Προσθήκη Προγράμματος</button>
-    <table id="programsTable">
-        <tr>
-            <th>Όνομα</th>
-            <th>Μέγιστη Χωρητικότητα</th>
-            <th>Ενέργειες</th>
-        </tr>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Όνομα</th>
+                <th>Μέγιστη Χωρητικότητα</th>
+                <th>Ενέργειες</th>
+            </tr>
+        </thead>
+        <tbody id="programsTable"></tbody>
     </table>
 
     <h2>Ανακοινώσεις</h2>
