@@ -33,10 +33,10 @@ async function loadUsers() {
 // 🏋️ Φόρτωση Γυμναστών
 async function loadTrainers() {
     const response = await fetch(`${API_URL}/trainers`);
-    const data = await response.json();
+    const trainers = await response.json();
 
-    if (!Array.isArray(data)) {
-        console.error("Invalid trainers data:", data);
+    if (!Array.isArray(trainers)) {
+        console.error("Invalid trainers data:", trainers);
         return;
     }
 
