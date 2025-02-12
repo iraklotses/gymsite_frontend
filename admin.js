@@ -135,20 +135,40 @@ function addProgram() {
 }
 
 // 📣 Φόρτωση Ανακοινώσεων
-async function loadAnnouncements() {
-    const response = await fetch(`${API_URL}/announcements`);
-    const announcements = await response.json();
-    const list = document.getElementById("announcementsList");
-    list.innerHTML = ""; // Καθαρισμός πριν την ενημέρωση
+function loadAnnouncements() {
+    fetch(`${API_URL}/announcements`)
+        .then(response => response.json())
+        .then(announcements => {
+            console.log("📢 Ανακοινώσεις που φορτώθηκαν:", announcements); // Debug log
 
-    announcements.forEach(announcement => {
-        const item = `<li>
-            <strong>${announcement.title}</strong>: ${announcement.content}
-            <button onclick="deleteAnnouncement(${announcement.id})">🗑️</button>
-        </li>`;
-        list.innerHTML += item;
-    });
+            let tableHTML = `<table>
+                <tr>
+                    <th>ID</th>
+                    <th>Τίτλος</th>
+                    <th>Περιεχόμενο</th>
+                    <th>Ενέργειες</th>
+                </tr>`;
+
+            announcements.forEach(announcement => {
+                console.log("📢 Announcement ID:", announcement.id); // Debug log
+
+                tableHTML += `
+                <tr>
+                    <td>${announcement.id}</td>
+                    <td>${announcement.title}</td>
+                    <td>${announcement.content}</td>
+                    <td>
+                        <button onclick="deleteAnnouncement(${announcement.id})">🗑</button>
+                    </td>
+                </tr>`;
+            });
+
+            tableHTML += `</table>`;
+            document.getElementById("announcementsTable").innerHTML = tableHTML;
+        })
+        .catch(error => console.error("❌ Σφάλμα στη φόρτωση ανακοινώσεων:", error));
 }
+
 
 function editProgram(id) {
     console.log(`✏️ Επεξεργασία προγράμματος με ID: ${id}`);
