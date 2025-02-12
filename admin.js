@@ -54,9 +54,34 @@ async function loadTrainers() {
 
 
 async function loadPrograms() {
-    const response = await fetch(`${API_URL}/programs`);
-    const programs = await response.json();
-    const table = document.getElementById("programsTable");
+    try {
+        const response = await fetch(`${API_URL}/programs`);
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            console.error("❌ Invalid programs data:", data);
+            return;
+        }
+
+        const table = document.getElementById("programsTable");
+        table.innerHTML = ""; // Καθαρισμός πίνακα
+
+        data.forEach(program => {
+            const row = `<tr>
+                <td>${program.name}</td>
+                <td>${program.capacity}</td>
+                <td>
+                    <button onclick="editProgram(${program.id})">✏️</button>
+                    <button onclick="deleteProgram(${program.id})">🗑️</button>
+                </td>
+            </tr>`;
+            table.innerHTML += row;
+        });
+    } catch (error) {
+        console.error("❌ Error fetching programs:", error);
+    }
+}
+
 
     //ΕΛΕΓΧΟΣ
 fetch("/programs")
