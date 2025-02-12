@@ -43,7 +43,7 @@ async function loadTrainers() {
     const table = document.getElementById("trainersTable");
     table.innerHTML = "";
 
-    data.forEach(trainer => {
+    trainers.forEach(trainer => {
         const row = `<tr>
             <td>${trainer.id}</td>
             <td>${trainer.full_name}</td>
