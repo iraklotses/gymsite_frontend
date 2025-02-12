@@ -212,12 +212,13 @@ function deleteAnnouncement(id) {
         method: "DELETE"
     })
     .then(response => {
-        console.log("🛜 Απάντηση από τον server:", response);
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         return response.json();
     })
-    .then(() => {
-        console.log(`✅ Ανακοίνωση ${id} διαγράφηκε!`);
+    .then(data => {
+        console.log("✅ Ανακοίνωση διαγράφηκε:", data);
         loadAnnouncements(); // Επαναφόρτωση λίστας
     })
     .catch(error => console.error("❌ Σφάλμα στη διαγραφή ανακοίνωσης:", error));
