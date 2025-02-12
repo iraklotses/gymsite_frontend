@@ -33,8 +33,11 @@ async function loadUsers() {
 async function loadTrainers() {
     const response = await fetch(`${API_URL}/trainers`);
     const trainers = await response.json();
+    if (!Array.isArray(trainers)) {
+        console.error("Invalid trainers data:", trainers);
+        return;
+    }
     const table = document.getElementById("trainersTable");
-
     trainers.forEach(trainer => {
         const row = `<tr>
             <td>${trainer.id}</td>
@@ -48,6 +51,7 @@ async function loadTrainers() {
         table.innerHTML += row;
     });
 }
+
 
 async function loadPrograms() {
     const response = await fetch(`${API_URL}/programs`);
