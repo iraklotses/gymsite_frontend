@@ -202,14 +202,20 @@ function deleteTrainer(id) {
 function deleteAnnouncement(id) {
     if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτήν την ανακοίνωση;")) return;
 
-    fetch(`${API_URL}/announcements/${id}`, { method: "DELETE" })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) throw new Error(data.error);
-            alert("Η ανακοίνωση διαγράφηκε επιτυχώς!");
-            loadAnnouncements(); // Επαναφόρτωση της λίστας ανακοινώσεων
-        })
-        .catch(error => console.error("❌ Σφάλμα στη διαγραφή:", error));
+    fetch(`${API_URL}/announcements/${id}`, { 
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" } // 👈 Μερικές φορές χρειάζεται
+    })
+    .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.json();
+    })
+    .then(data => {
+        console.log("✅ Ανακοίνωση διαγράφηκε:", data);
+        alert("Η ανακοίνωση διαγράφηκε επιτυχώς!");
+        loadAnnouncements(); // Επαναφόρτωση
+    })
+    .catch(error => console.error("❌ Σφάλμα στη διαγραφή ανακοίνωσης:", error));
 }
 
 
