@@ -151,6 +151,11 @@ async function loadServices() {
 async function loadAnnouncements() {
     try {
         const response = await fetch(`${API_URL}/announcements`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const announcements = await response.json();
 
         const announcementsList = document.getElementById("announcementsList");
