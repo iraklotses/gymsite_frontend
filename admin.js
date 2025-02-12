@@ -135,20 +135,26 @@ function addProgram() {
 }
 
 // 📣 Φόρτωση Ανακοινώσεων
-async function loadAnnouncements() {
-    const response = await fetch(`${API_URL}/announcements`);
-    const announcements = await response.json();
-    const list = document.getElementById("announcementsList");
-    list.innerHTML = ""; // Καθαρισμός πριν την ενημέρωση
+function loadAnnouncements() {
+    fetch(`${API_URL}/announcements`)
+        .then(response => response.json())
+        .then(announcements => {
+            const announcementsList = document.getElementById("announcementsList");
+            announcementsList.innerHTML = ""; // Καθαρισμός πριν την προσθήκη
 
-    announcements.forEach(announcement => {
-        const item = `<li>
-            <strong>${announcement.title}</strong>: ${announcement.content}
-            <button onclick="deleteAnnouncement(${announcement.id})">🗑️</button>
-        </li>`;
-        list.innerHTML += item;
-    });
+            announcements.forEach(announcement => {
+                // Δημιουργία στοιχείου <li> για κάθε ανακοίνωση
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    ${announcement.text} 
+                    <button onclick="deleteAnnouncement(${announcement.id})">🗑</button>
+                `;
+                announcementsList.appendChild(li);
+            });
+        })
+        .catch(error => console.error("❌ Σφάλμα φόρτωσης ανακοινώσεων:", error));
 }
+
 
 
 function editProgram(id) {
