@@ -4,60 +4,65 @@ console.log("Το script.js φορτώθηκε!");
 
 // 📌 LOGIN FUNCTION
 document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.getElementById("loginForm");
+    const userLoginForm = document.getElementById("userLoginForm");
+    const adminLoginForm = document.getElementById("adminLoginForm");
 
-    if (loginForm) {
-        loginForm.addEventListener("submit", async (e) => {
+    if (userLoginForm) {
+        userLoginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            const email = document.getElementById("userEmail").value;
+            const password = document.getElementById("userPassword").value;
 
-            try {
-                const response = await fetch(`${API_URL}/login`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const result = await response.json();
-                console.log("Απάντηση από server:", result);
-
-                if (result.success) {
-                    // ✅ Αποθηκεύουμε το user_id και το role
-                    localStorage.setItem("user_id", result.user.id);
-                    localStorage.setItem("user_role", result.user.role);
-
-                    alert("✅ Επιτυχής σύνδεση!");
-
-                    if (result.user.role === "admin") {
-                        window.location.href = "dashboard.html";
-                    } else {
-                        alert("⚠️ Δεν έχετε πρόσβαση στο διαχειριστικό!");
-                    }
-                } else {
-                    alert("❌ Λάθος στοιχεία!");
-                }
-            } catch (error) {
-                console.error("Σφάλμα στο fetch:", error);
-                alert("⚠️ Πρόβλημα σύνδεσης στον server!");
-            }
+            await handleLogin(email, password, "user");
         });
     }
 
-    // 📌 DASHBOARD ACCESS CONTROL
-    if (window.location.pathname.includes("dashboard.html")) {
-        checkAdminAccess();
+    if (adminLoginForm) {
+        adminLoginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("adminEmail").value;
+            const password = document.getElementById("adminPassword").value;
+
+            await handleLogin(email, password, "admin");
+        });
     }
 });
 
-// 📌 FUNCTION για έλεγχο διαχειριστή
-function checkAdminAccess() {
-    const role = localStorage.getItem("user_role");
+// 📌 Handle Login Function
+async function handleLogin(email, password, expectedRole) {
+    try {
+        const response = await fetch(`${API_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
 
-    if (role !== "admin") {
-        alert("❌ Δεν έχετε πρόσβαση στο dashboard!");
-        window.location.href = "index.html";
+        const result = await response.json();
+        console.log("Απάντηση από server:", result);
+
+        if (result.success) {
+            if (result.user.role === expectedRole) {
+                localStorage.setItem("user_id", result.user.id);
+                localStorage.setItem("user_role", result.user.role);
+
+                alert("✅ Επιτυχής σύνδεση!");
+                
+                if (expectedRole === "user") {
+                    window.location.href = "dashboard.html";
+                } else {
+                    window.location.href = "admin.html";
+                }
+            } else {
+                alert("❌ Δεν έχετε πρόσβαση σε αυτό το τμήμα!");
+            }
+        } else {
+            alert("❌ Λάθος στοιχεία!");
+        }
+    } catch (error) {
+        console.error("Σφάλμα στο fetch:", error);
+        alert("⚠️ Πρόβλημα σύνδεσης στον server!");
     }
 }
 
