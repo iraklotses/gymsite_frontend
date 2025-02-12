@@ -109,7 +109,6 @@ fetch("/programs")
         </tr>`;
         table.innerHTML += row;
     });
-}
 
 function addUser() {
     const name = prompt("Όνομα χρήστη:");
