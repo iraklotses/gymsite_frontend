@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Διαχείριση - GymSite</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>🔧 Πίνακας Διαχείρισης</h1>
+    <button onclick="logout()">Αποσύνδεση</button>
+
+    <section id="adminPanel">
+        <h2>Διαχείριση Χρηστών</h2>
+        <ul id="usersList"></ul>
+
+        <h2>Αιτήματα Εγγραφής</h2>
+        <ul id="requestsList"></ul>
+
+        <h2>Διαχείριση Ανακοινώσεων</h2>
+        <ul id="announcementsList"></ul>
+        <button onclick="createAnnouncement()">➕ Προσθήκη Ανακοίνωσης</button>
+
+        <h2>Διαχείριση Υπηρεσιών</h2>
+        <ul id="servicesList"></ul>
+        <button onclick="createService()">➕ Προσθήκη Υπηρεσίας</button>
+    </section>
+</body>
+</html>
