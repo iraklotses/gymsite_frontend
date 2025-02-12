@@ -113,18 +113,21 @@ function addProgram() {
 }
 
 // 📣 Προσθήκη Ανακοίνωσης
-function addAnnouncement() {
-    const title = prompt("Τίτλος ανακοίνωσης:");
-    const content = prompt("Περιεχόμενο:");
+async function loadAnnouncements() {
+    const response = await fetch(`${API_URL}/announcements`);
+    const announcements = await response.json();
+    const list = document.getElementById("announcementsList");
+    list.innerHTML = "";
 
-    if (title && content) {
-        fetch(`${API_URL}/announcements`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, content })
-        }).then(() => loadAnnouncements());
-    }
+    announcements.forEach(announcement => {
+        const item = `<li>
+            <strong>${announcement.title}</strong>: ${announcement.content}
+            <button onclick="deleteAnnouncement(${announcement.id})">🗑️</button>
+        </li>`;
+        list.innerHTML += item;
+    });
 }
+
 
 // ❌ Αποσύνδεση
 function logout() {
