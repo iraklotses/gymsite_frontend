@@ -200,12 +200,14 @@ function deleteTrainer(id) {
 }
 
 function deleteAnnouncement(id) {
+    if (!id) {
+        console.error("❌ Λάθος: Το ID της ανακοίνωσης είναι undefined!");
+        return;
+    }
+
     if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτήν την ανακοίνωση;")) return;
 
-    fetch(`${API_URL}/announcements/${id}`, { 
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" } // 👈 Μερικές φορές χρειάζεται
-    })
+    fetch(`${API_URL}/announcements/${id}`, { method: "DELETE" })
     .then(response => {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         return response.json();
@@ -217,7 +219,6 @@ function deleteAnnouncement(id) {
     })
     .catch(error => console.error("❌ Σφάλμα στη διαγραφή ανακοίνωσης:", error));
 }
-
 
 
 // ❌ Αποσύνδεση
