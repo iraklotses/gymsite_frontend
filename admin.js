@@ -61,23 +61,23 @@ async function loadTrainers() {
 // 📅 Φόρτωση Προγραμμάτων
 async function loadPrograms() {
     const response = await fetch(`${API_URL}/programs`);
-    const data = await response.json();
+    const programs = await response.json();
+    const table = document.getElementById("programsTable");
 
-    if (!Array.isArray(data)) {
-        console.error("Invalid programs data:", data);
+    if (!Array.isArray(programs)) {
+        console.error("Invalid programs data:", programs);
         return;
     }
 
-    const table = document.getElementById("programsTable");
-    table.innerHTML = "";
+    table.innerHTML = ""; // Καθαρισμός πριν προσθέσουμε νέες γραμμές
 
-    data.forEach(program => {
+    programs.forEach(program => {
         const row = `<tr>
             <td>${program.name}</td>
+            <td>${program.max_capacity}</td>
             <td>${program.trainer_id}</td>
             <td>${program.day_of_week}</td>
             <td>${program.time}</td>
-            <td>${program.max_capacity}</td>
             <td>
                 <button onclick="editProgram(${program.id})">✏️</button>
                 <button onclick="deleteProgram(${program.id})">🗑️</button>
@@ -86,6 +86,7 @@ async function loadPrograms() {
         table.innerHTML += row;
     });
 }
+
 
 // ➕ Προσθήκη Χρήστη
 function addUser() {
