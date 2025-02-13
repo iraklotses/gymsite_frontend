@@ -150,18 +150,22 @@ async function loadServices() {
 // 📌 Φόρτωση Ανακοινώσεων
 async function loadAnnouncements() {
     try {
+        console.log("🔄 Ζητάμε ανακοινώσεις από:", `${API_URL}/announcements`);
         const response = await fetch(`${API_URL}/announcements`);
-        
+        console.log("📩 Απάντηση από server:", response);
+
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const announcements = await response.json();
+        console.log("✅ Ανακοινώσεις που λήφθηκαν:", announcements);
 
         const announcementsList = document.getElementById("announcementsList");
         announcementsList.innerHTML = "";
 
         if (announcements.length === 0) {
+            console.log("⚠️ Δεν υπάρχουν ανακοινώσεις!");
             announcementsList.innerHTML = "<li>Δεν υπάρχουν ανακοινώσεις.</li>";
             return;
         }
@@ -176,3 +180,4 @@ async function loadAnnouncements() {
         document.getElementById("announcementsList").innerHTML = "<li>⚠️ Αποτυχία φόρτωσης!</li>";
     }
 }
+
