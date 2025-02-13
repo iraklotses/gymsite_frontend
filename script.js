@@ -171,10 +171,14 @@ async function loadAnnouncements() {
         }
 
         announcements.forEach(announcement => {
-            const li = document.createElement("li");
-            li.textContent = `${announcement.title} - ${announcement.date}`;
-            announcementsList.appendChild(li);
-        });
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${announcement.title}</strong> <br>
+                    ID: ${announcement.id} <br>
+                    Ημερομηνία: ${announcement.date} <br>
+                    Περιγραφή: ${announcement.description}`;
+        announcementsList.appendChild(li);
+});
+
     } catch (error) {
         console.error("❌ Σφάλμα κατά τη φόρτωση των ανακοινώσεων:", error);
         document.getElementById("announcementsList").innerHTML = "<li>⚠️ Αποτυχία φόρτωσης!</li>";
