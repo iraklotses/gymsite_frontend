@@ -170,14 +170,15 @@ async function loadAnnouncements() {
             return;
         }
 
-        announcements.forEach(announcement => {
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${announcement.title}</strong> <br>
+      announcements.forEach(announcement => {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${announcement.title}</strong> <br>
                     ID: ${announcement.id} <br>
-                    Ημερομηνία: ${announcement.date} <br>
-                    Περιγραφή: ${announcement.description}`;
-        announcementsList.appendChild(li);
+                    Ημερομηνία: ${announcement.created_at} <br>
+                    Περιγραφή: ${announcement.content}`;
+    announcementsList.appendChild(li);
 });
+
 
     } catch (error) {
         console.error("❌ Σφάλμα κατά τη φόρτωση των ανακοινώσεων:", error);
