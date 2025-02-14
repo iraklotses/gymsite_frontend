@@ -191,15 +191,24 @@ function editUser(id) {
 function editTrainer(id) {
     const name = prompt("Νέο όνομα γυμναστή:");
     const specialization = prompt("Νέα ειδικότητα:");
-
+    
     if (name && specialization) {
         fetch(`${API_URL}/trainers/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, specialization })
-        }).then(() => loadTrainers());
+            body: JSON.stringify({ full_name: name, specialty: specialization })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(() => loadTrainers())
+        .catch(error => console.error("Error updating trainer:", error));
     }
 }
+
 
 function editProgram(id) {
     const name = prompt("Νέο όνομα προγράμματος:");
