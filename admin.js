@@ -187,28 +187,29 @@ function editUser(id) {
     }
 }
 
+app.put("/trainers/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { full_name, specialty } = req.body;
 
-function editTrainer(id) {
-    const name = prompt("Νέο όνομα γυμναστή:");
-    const specialization = prompt("Νέα ειδικότητα:");
-    
-    if (name && specialization) {
-        fetch(`${API_URL}/trainers/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ full_name: name, specialty: specialization })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(() => loadTrainers())
-        .catch(error => console.error("Error updating trainer:", error));
+        if (!full_name || !specialty) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+
+        const result = await db("trainers")
+            .where({ id })
+            .update({ full_name, specialty });
+
+        if (result) {
+            res.json({ message: "Trainer updated successfully" });
+        } else {
+            res.status(404).json({ error: "Trainer not found" });
+        }
+    } catch (error) {
+        console.error("Update error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
-}
-
+});
 
 function editProgram(id) {
     const name = prompt("Νέο όνομα προγράμματος:");
