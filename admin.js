@@ -174,18 +174,19 @@ function loadAnnouncements() {
 
 
 function editUser(id) {
-    const name = prompt("Νέο όνομα χρήστη:");
+    const full_name = prompt("Νέο όνομα χρήστη:");
     const email = prompt("Νέο email χρήστη:");
     const role = prompt("Νέος ρόλος χρήστη:");
 
-    if (name && email && role) {
+    if (full_name && email && role) {
         fetch(`${API_URL}/users/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, role })
-        }).then(() => loadUsers()); // Επαναφόρτωση λίστας χρηστών
+            body: JSON.stringify({ full_name, email, role })
+        }).then(() => loadUsers());
     }
 }
+
 
 function editTrainer(id) {
     const name = prompt("Νέο όνομα γυμναστή:");
