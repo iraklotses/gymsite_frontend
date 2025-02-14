@@ -134,6 +134,20 @@ function addProgram() {
     }
 }
 
+function addAnnouncement() {
+    const title = prompt("Τίτλος ανακοίνωσης:");
+    const content = prompt("Περιεχόμενο ανακοίνωσης:");
+
+    if (title && content) {
+        fetch(`${API_URL}/announcements`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title, content }) // Τα σωστά πεδία
+        }).then(() => loadAnnouncements()); // Επαναφόρτωση λίστας ανακοινώσεων
+    }
+}
+
+
 // 📣 Φόρτωση Ανακοινώσεων
 function loadAnnouncements() {
     fetch(`${API_URL}/announcements`)
@@ -159,11 +173,62 @@ function loadAnnouncements() {
 
 
 
-function editProgram(id) {
-    console.log(`✏️ Επεξεργασία προγράμματος με ID: ${id}`);
-    alert(`Επεξεργασία προγράμματος με ID: ${id}`);
-    // Εδώ μπορείς να ανοίξεις μια φόρμα για να αλλάξεις τα δεδομένα
+function editUser(id) {
+    const name = prompt("Νέο όνομα χρήστη:");
+    const email = prompt("Νέο email χρήστη:");
+    const role = prompt("Νέος ρόλος χρήστη:");
+
+    if (name && email && role) {
+        fetch(`${API_URL}/users/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, role })
+        }).then(() => loadUsers()); // Επαναφόρτωση λίστας χρηστών
+    }
 }
+
+function editTrainer(id) {
+    const name = prompt("Νέο όνομα γυμναστή:");
+    const specialization = prompt("Νέα ειδικότητα:");
+
+    if (name && specialization) {
+        fetch(`${API_URL}/trainers/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, specialization })
+        }).then(() => loadTrainers());
+    }
+}
+
+function editProgram(id) {
+    const name = prompt("Νέο όνομα προγράμματος:");
+    const trainer_id = prompt("Νέο ID γυμναστή:");
+    const day_of_week = prompt("Νέα ημέρα εβδομάδας:");
+    const time = prompt("Νέα ώρα (HH:MM:SS):");
+    const max_capacity = prompt("Νέα μέγιστη χωρητικότητα:");
+
+    if (name && trainer_id && day_of_week && time && max_capacity) {
+        fetch(`${API_URL}/programs/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, trainer_id, day_of_week, time, max_capacity })
+        }).then(() => loadPrograms());
+    }
+}
+
+function editAnnouncement(id) {
+    const title = prompt("Νέος τίτλος ανακοίνωσης:");
+    const content = prompt("Νέο περιεχόμενο:");
+
+    if (title && content) {
+        fetch(`${API_URL}/announcements/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title, content })
+        }).then(() => loadAnnouncements());
+    }
+}
+
 
 function deleteProgram(id) {
     if (confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτό το πρόγραμμα;")) {
