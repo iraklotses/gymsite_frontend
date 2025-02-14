@@ -146,7 +146,8 @@ function loadAnnouncements() {
                 // Δημιουργία στοιχείου <li> για κάθε ανακοίνωση
                 const li = document.createElement("li");
                 li.innerHTML = `
-                    ${announcement.text} 
+                    <strong>Ημερομηνία:</strong> ${announcement.created_at} <br>
+                    <strong>Περιγραφή:</strong> ${announcement.content} <br>
                     <button onclick="deleteAnnouncement(${announcement.id})">🗑</button>
                 `;
                 announcementsList.appendChild(li);
@@ -154,6 +155,7 @@ function loadAnnouncements() {
         })
         .catch(error => console.error("❌ Σφάλμα φόρτωσης ανακοινώσεων:", error));
 }
+
 
 
 
