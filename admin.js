@@ -1,4 +1,5 @@
 const API_URL = "https://gymsite-six.vercel.app";
+const tableBody = document.getElementById("pendingUsersTable");
 
 // 🔄 Φόρτωση Δεδομένων
 document.addEventListener("DOMContentLoaded", async () => {
@@ -315,7 +316,80 @@ function deleteAnnouncement(id) {
     .catch(error => console.error("❌ Σφάλμα στη διαγραφή ανακοίνωσης:", error));
 }
 
+async function loadPendingUsers() {
+        tableBody.innerHTML = ""; // Καθαρισμός πίνακα
 
+        try {
+            const response = await fetch("https://gymsite-six.vercel.app/pending_users");
+            const users = await response.json();
+
+            users.forEach(user => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${user.full_name}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <button onclick="approveUser(${user.id}, 'user')">✔ Έγκριση</button>
+                        <button onclick="approveUser(${user.id}, 'admin')">✔ Έγκριση ως Admin</button>
+                        <button onclick="rejectUser(${user.id})">❌ Απόρριψη</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } catch (error) {
+            console.error("Σφάλμα φόρτωσης χρηστών:", error);
+        }
+    }
+
+    // 🔹 Έγκριση χρήστη (approve) και ανάθεση ρόλου
+    async function approveUser(userId, role) {
+        try {
+            const response = await fetch("https://gymsite-six.vercel.app/approve_user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ userId, role })
+            });
+
+            if (response.ok) {
+                alert("Ο χρήστης εγκρίθηκε!");
+                loadPendingUsers(); // Ανανέωση λίστας
+            } else {
+                const result = await response.json();
+                alert("Σφάλμα: " + result.error);
+            }
+        } catch (error) {
+            console.error("Σφάλμα έγκρισης χρήστη:", error);
+        }
+    }
+
+    // 🔹 Απόρριψη χρήστη (reject)
+    async function rejectUser(userId) {
+        try {
+            const response = await fetch("https://gymsite-six.vercel.app/reject_user", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ userId })
+            });
+
+            if (response.ok) {
+                alert("Ο χρήστης απορρίφθηκε!");
+                loadPendingUsers(); // Ανανέωση λίστας
+            } else {
+                const result = await response.json();
+                alert("Σφάλμα: " + result.error);
+            }
+        } catch (error) {
+            console.error("Σφάλμα απόρριψης χρήστη:", error);
+        }
+    }
+
+    // Φόρτωση χρηστών στην αρχή
+    loadPendingUsers();
+});
 
 
 // ❌ Αποσύνδεση
