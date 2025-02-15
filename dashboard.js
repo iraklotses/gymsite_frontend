@@ -50,66 +50,126 @@ function logout() {
     window.location.href = "index.html";
 }
 
-async function checkAvailability() {
-    const programId = document.getElementById("program").value;
-    const date = document.getElementById("date").value;
-    const timeSlot = document.getElementById("time").value;
+document.addEventListener("DOMContentLoaded", async function () {
+    const emailDisplay = document.getElementById("emailDisplay");
+    const programSelect = document.getElementById("programSelect");
+    const daySelect = document.getElementById("daySelect");
+    const timeSelect = document.getElementById("timeSelect");
+    const myBookings = document.getElementById("myBookings");
 
-    if (!programId || !date || !timeSlot) {
-        alert("Συμπληρώστε όλα τα πεδία!");
-        return;
+    // Ανάκτηση email χρήστη από το session
+    const userEmail = sessionStorage.getItem("userEmail");
+    if (!userEmail) {
+        window.location.href = "index.html"; // Redirect αν δεν είναι συνδεδεμένος
+    }
+    emailDisplay.innerText = userEmail;
+
+    // ✅ Φόρτωση προγραμμάτων
+    async function loadPrograms() {
+        try {
+            const response = await fetch("/api/programs");
+            const programs = await response.json();
+            programSelect.innerHTML = programs.map(p => `<option value="${p.id}">${p.name}</option>`).join("");
+            loadDays(); // Φόρτωση ημερών μόλις επιλεγεί πρόγραμμα
+        } catch (error) {
+            console.error("Σφάλμα φόρτωσης προγραμμάτων:", error);
+        }
     }
 
-    const response = await fetch("https://gymsite-six.vercel.app/check-availability", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ program_id: programId, date, time_slot: timeSlot }),
-    });
-
-    const data = await response.json();
-
-    if (data.available) {
-        document.getElementById("availabilityResult").textContent = `Διαθέσιμες θέσεις: ${data.availableSlots}`;
-        document.getElementById("bookButton").style.display = "block";
-    } else {
-        document.getElementById("availabilityResult").textContent = "Δεν υπάρχουν διαθέσιμες θέσεις!";
-        document.getElementById("bookButton").style.display = "none";
+    // ✅ Φόρτωση ημερών
+    async function loadDays() {
+        const programId = programSelect.value;
+        try {
+            const response = await fetch(`/api/program_days?programId=${programId}`);
+            const days = await response.json();
+            daySelect.innerHTML = days.map(d => `<option value="${d.day_of_week}">${d.day_of_week}</option>`).join("");
+            loadTimes(); // Φόρτωση ωρών μόλις επιλεγεί ημέρα
+        } catch (error) {
+            console.error("Σφάλμα φόρτωσης ημερών:", error);
+        }
     }
-}
 
-async function bookSlot() {
-    const programId = document.getElementById("program").value;
-    const date = document.getElementById("date").value;
-    const timeSlot = document.getElementById("time").value;
-
-    const response = await fetch("https://gymsite-six.vercel.app/book", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: userId, program_id: programId, date, time_slot: timeSlot }),
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-        alert("Κράτηση Επιτυχής!");
-        loadReservations();
-    } else {
-        alert("Αποτυχία κράτησης: " + data.error);
+    // ✅ Φόρτωση ωρών
+    async function loadTimes() {
+        const programId = programSelect.value;
+        const day = daySelect.value;
+        try {
+            const response = await fetch(`/api/program_times?programId=${programId}&day=${day}`);
+            const times = await response.json();
+            timeSelect.innerHTML = times.map(t => `<option value="${t.time}">${t.time}</option>`).join("");
+        } catch (error) {
+            console.error("Σφάλμα φόρτωσης ωρών:", error);
+        }
     }
-}
 
-async function loadReservations() {
-    const response = await fetch(`https://gymsite-six.vercel.app/reservations/${userId}`);
-    const reservations = await response.json();
+    // ✅ Έλεγχος διαθεσιμότητας
+    async function checkAvailability() {
+        const programId = programSelect.value;
+        const day = daySelect.value;
+        const time = timeSelect.value;
 
-    const list = document.getElementById("reservationsList");
-    list.innerHTML = "";
+        try {
+            const response = await fetch(`/api/check_availability?programId=${programId}&day=${day}&time=${time}`);
+            const data = await response.json();
 
-    reservations.forEach(res => {
-        const li = document.createElement("li");
-        li.textContent = `${res.program_name} - ${res.date} - ${res.time_slot}`;
-        list.appendChild(li);
-    });
-}
+            if (data.available) {
+                document.getElementById("availabilityResult").innerText = `Διαθέσιμες θέσεις: ${data.capacity}`;
+                document.getElementById("availabilityResult").innerHTML += `<button onclick="bookProgram()">Κράτηση</button>`;
+            } else {
+                document.getElementById("availabilityResult").innerText = "Δεν υπάρχουν διαθέσιμες θέσεις!";
+            }
+        } catch (error) {
+            console.error("Σφάλμα ελέγχου διαθεσιμότητας:", error);
+        }
+    }
 
-document.addEventListener("DOMContentLoaded", loadReservations);
+    // ✅ Κράτηση προγράμματος
+    async function bookProgram() {
+        const programId = programSelect.value;
+        const day = daySelect.value;
+        const time = timeSelect.value;
+
+        try {
+            const response = await fetch("/api/book_program", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: userEmail, programId, day, time })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert("Η κράτηση ολοκληρώθηκε!");
+                loadMyBookings(); // Ανανεώνει τις κρατήσεις του χρήστη
+            } else {
+                alert("Αποτυχία κράτησης.");
+            }
+        } catch (error) {
+            console.error("Σφάλμα κράτησης:", error);
+        }
+    }
+
+    // ✅ Φόρτωση κρατήσεων χρήστη
+    async function loadMyBookings() {
+        try {
+            const response = await fetch(`/api/my_bookings?email=${userEmail}`);
+            const bookings = await response.json();
+            myBookings.innerHTML = bookings.map(b => `<p>${b.program_name} - ${b.date} - ${b.time}</p>`).join("");
+        } catch (error) {
+            console.error("Σφάλμα φόρτωσης κρατήσεων:", error);
+        }
+    }
+
+    // ✅ Αποσύνδεση
+    function logout() {
+        sessionStorage.clear();
+        window.location.href = "index.html";
+    }
+
+    // Φόρτωση προγραμμάτων κατά την εκκίνηση
+    await loadPrograms();
+    await loadMyBookings();
+
+    // Events για αλλαγή επιλογών
+    programSelect.addEventListener("change", loadDays);
+    daySelect.addEventListener("change", loadTimes);
+});
