@@ -73,11 +73,14 @@ async function handleLogin(email, password, expectedRole) {
 document.getElementById("registerForm").addEventListener("submit", async function(event) {
     event.preventDefault(); // Αποτρέπει το default submit
 
+    const full_name = document.getElementById("full_name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
     const formData = {
-        first_name: document.getElementById("first_name").value,
-        last_name: document.getElementById("last_name").value,
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value
+        full_name: full_name,
+        email: email,
+        password: password
     };
 
     try {
