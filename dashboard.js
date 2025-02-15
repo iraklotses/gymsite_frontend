@@ -49,3 +49,67 @@ function logout() {
     alert("👋 Αποσυνδεθήκατε!");
     window.location.href = "index.html";
 }
+
+async function checkAvailability() {
+    const programId = document.getElementById("program").value;
+    const date = document.getElementById("date").value;
+    const timeSlot = document.getElementById("time").value;
+
+    if (!programId || !date || !timeSlot) {
+        alert("Συμπληρώστε όλα τα πεδία!");
+        return;
+    }
+
+    const response = await fetch("https://gymsite-six.vercel.app/check-availability", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ program_id: programId, date, time_slot: timeSlot }),
+    });
+
+    const data = await response.json();
+
+    if (data.available) {
+        document.getElementById("availabilityResult").textContent = `Διαθέσιμες θέσεις: ${data.availableSlots}`;
+        document.getElementById("bookButton").style.display = "block";
+    } else {
+        document.getElementById("availabilityResult").textContent = "Δεν υπάρχουν διαθέσιμες θέσεις!";
+        document.getElementById("bookButton").style.display = "none";
+    }
+}
+
+async function bookSlot() {
+    const programId = document.getElementById("program").value;
+    const date = document.getElementById("date").value;
+    const timeSlot = document.getElementById("time").value;
+
+    const response = await fetch("https://gymsite-six.vercel.app/book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: userId, program_id: programId, date, time_slot: timeSlot }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+        alert("Κράτηση Επιτυχής!");
+        loadReservations();
+    } else {
+        alert("Αποτυχία κράτησης: " + data.error);
+    }
+}
+
+async function loadReservations() {
+    const response = await fetch(`https://gymsite-six.vercel.app/reservations/${userId}`);
+    const reservations = await response.json();
+
+    const list = document.getElementById("reservationsList");
+    list.innerHTML = "";
+
+    reservations.forEach(res => {
+        const li = document.createElement("li");
+        li.textContent = `${res.program_name} - ${res.date} - ${res.time_slot}`;
+        list.appendChild(li);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", loadReservations);
