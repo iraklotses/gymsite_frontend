@@ -343,27 +343,35 @@ async function loadPendingUsers() {
     }
 
     // 🔹 Έγκριση χρήστη (approve) και ανάθεση ρόλου
-    async function approveUser(userId, role) {
-        try {
-            const response = await fetch("https://gymsite-six.vercel.app/approve_user", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ userId, role })
-            });
+   async function approveUser(userId, role) {
+    console.log("Approving user:", { userId, role }); // 🔍 Debugging
 
-            if (response.ok) {
-                alert("Ο χρήστης εγκρίθηκε!");
-                loadPendingUsers(); // Ανανέωση λίστας
-            } else {
-                const result = await response.json();
-                alert("Σφάλμα: " + result.error);
-            }
-        } catch (error) {
-            console.error("Σφάλμα έγκρισης χρήστη:", error);
-        }
+    if (!userId || !role) {
+        alert("Σφάλμα: Το userId ή το role λείπει!");
+        return;
     }
+
+    try {
+        const response = await fetch("https://gymsite-six.vercel.app/approve_user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId, role }) 
+        });
+
+        if (response.ok) {
+            alert("Ο χρήστης εγκρίθηκε!");
+            loadPendingUsers();
+        } else {
+            const result = await response.json();
+            alert("Σφάλμα: " + result.error);
+        }
+    } catch (error) {
+        console.error("Σφάλμα έγκρισης χρήστη:", error);
+    }
+}
+
 
     // 🔹 Απόρριψη χρήστη (reject)
     async function rejectUser(userId) {
