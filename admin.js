@@ -374,27 +374,35 @@ async function loadPendingUsers() {
 
 
     // 🔹 Απόρριψη χρήστη (reject)
-    async function rejectUser(userId) {
-        try {
-            const response = await fetch("https://gymsite-six.vercel.app/reject_user", {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ userId })
-            });
+   async function rejectUser(userId) {
+    console.log("Rejecting user:", userId); // 🔍 Debugging
 
-            if (response.ok) {
-                alert("Ο χρήστης απορρίφθηκε!");
-                loadPendingUsers(); // Ανανέωση λίστας
-            } else {
-                const result = await response.json();
-                alert("Σφάλμα: " + result.error);
-            }
-        } catch (error) {
-            console.error("Σφάλμα απόρριψης χρήστη:", error);
-        }
+    if (!userId) {
+        alert("Σφάλμα: Λείπει το userId!");
+        return;
     }
+
+    try {
+        const response = await fetch("https://gymsite-six.vercel.app/reject_user", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId })
+        });
+
+        if (response.ok) {
+            alert("Ο χρήστης απορρίφθηκε!");
+            loadPendingUsers();
+        } else {
+            const result = await response.json();
+            alert("Σφάλμα: " + result.error);
+        }
+    } catch (error) {
+        console.error("Σφάλμα απόρριψης χρήστη:", error);
+    }
+}
+
 
     // Φόρτωση χρηστών στην αρχή
     loadPendingUsers();
