@@ -16,49 +16,31 @@
             padding: 10px 20px;
             border: none;
             cursor: pointer;
-            margin-top: 10px;
-        }
-        select, input {
-            padding: 5px;
-            margin: 5px;
         }
     </style>
 </head>
 <body>
 
     <h1>Καλώς ήρθες στο Dashboard!</h1>
-    
-    <p id="emailDisplay">Φόρτωση...</p>
+    <p>Email: <span id="emailDisplay">Φόρτωση...</span></p>
 
     <h2>Κράτηση Προγράμματος</h2>
 
-    <label for="program">Πρόγραμμα:</label>
-    <select id="program">
-        <option value="1">Yoga</option>
-        <option value="2">Pilates</option>
-        <option value="3">CrossFit</option>
-    </select>
+    <label for="programSelect">Πρόγραμμα:</label>
+    <select id="programSelect"></select>
 
-    <label for="date">Ημερομηνία:</label>
-    <input type="date" id="date">
+    <label for="daySelect">Ημέρα της εβδομάδας:</label>
+    <select id="daySelect"></select>
 
-    <label for="time">Ώρα:</label>
-    <select id="time">
-        <option value="08:00">08:00</option>
-        <option value="10:00">10:00</option>
-        <option value="12:00">12:00</option>
-        <option value="16:00">16:00</option>
-        <option value="18:00">18:00</option>
-    </select>
+    <label for="timeSelect">Ώρα:</label>
+    <select id="timeSelect"></select>
 
     <button onclick="checkAvailability()">Έλεγχος Διαθεσιμότητας</button>
 
     <p id="availabilityResult"></p>
 
-    <button id="bookButton" onclick="bookSlot()" style="display:none;">Κάνε Κράτηση</button>
-
-    <h3>Οι Κρατήσεις Μου</h3>
-    <ul id="reservationsList"></ul>
+    <h2>Οι Κρατήσεις Μου</h2>
+    <div id="myBookings"></div>
 
     <button onclick="logout()">Αποσύνδεση</button>
 
