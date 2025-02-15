@@ -331,6 +331,7 @@ async function loadPendingUsers() {
                     <td>${user.email}</td>  <!-- Email στη σωστή θέση -->
     <td>
         <button onclick="approveUser(${user.id}, 'user')">✔ Έγκριση</button>
+        <button onclick="approveUser(${user.id}, 'admin')">✔ Έγκριση ως Admin</button>
         <button onclick="rejectUser(${user.id})">❌ Απόρριψη</button>
     </td>
                 `;
