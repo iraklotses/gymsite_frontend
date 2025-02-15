@@ -389,7 +389,6 @@ async function loadPendingUsers() {
 
     // Φόρτωση χρηστών στην αρχή
     loadPendingUsers();
-});
 
 
 // ❌ Αποσύνδεση
