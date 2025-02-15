@@ -326,13 +326,14 @@ async function loadPendingUsers() {
             users.forEach(user => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td>${user.full_name}</td>
-                    <td>${user.email}</td>
-                    <td>
-                        <button onclick="approveUser(${user.id}, 'user')">✔ Έγκριση</button>
-                        <button onclick="approveUser(${user.id}, 'admin')">✔ Έγκριση ως Admin</button>
-                        <button onclick="rejectUser(${user.id})">❌ Απόρριψη</button>
-                    </td>
+                    <td>${user.id}</td>  <!-- ID στη σωστή θέση -->
+                    <td>${user.full_name}</td>  <!-- Όνομα στη σωστή θέση -->
+                    <td>${user.email}</td>  <!-- Email στη σωστή θέση -->
+    <td>
+        <button onclick="approveUser(${user.id}, 'user')">✔ Έγκριση</button>
+        <button onclick="approveUser(${user.id}, 'admin')">✔ Έγκριση ως Admin</button>
+        <button onclick="rejectUser(${user.id})">❌ Απόρριψη</button>
+    </td>
                 `;
                 tableBody.appendChild(row);
             });
