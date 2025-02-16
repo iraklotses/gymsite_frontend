@@ -32,6 +32,38 @@ if (!userEmail) {
     }
 }
 
+// ✅ Φόρτωση προφίλ χρήστη
+async function loadUserProfile() {
+    try {
+        const response = await fetch(`${API_URL}/profile?id=${userId}`);
+        const data = await response.json();
+
+        console.log("ℹ️ Δεδομένα χρήστη:", data);
+
+        if (data.error) {
+            console.error("❌ Σφάλμα στο profile:", data.error);
+            alert("❌ Πρόβλημα με τη φόρτωση των δεδομένων. Ξανακάνε login.");
+            localStorage.removeItem("user_id"); // Καθαρίζει το λάθος user_id
+            window.location.href = "index.html";
+        } else {
+            const emailDisplay = document.getElementById("emailDisplay");
+            
+            // ✅ Έλεγχος αν υπάρχει το στοιχείο πριν το χρησιμοποιήσουμε
+            if (emailDisplay) {
+                emailDisplay.innerText = `Email: ${data.email}`;
+            } else {
+                console.error("❌ Το στοιχείο emailDisplay δεν βρέθηκε στη σελίδα!");
+            }
+
+            localStorage.setItem("userEmail", data.email); // Αποθήκευση email
+        }
+    } catch (err) {
+        console.error("❌ Σφάλμα στο fetch:", err);
+        alert("⚠️ Πρόβλημα επικοινωνίας με τον server!");
+        window.location.href = "index.html";
+    }
+}
+
 // ✅ Φόρτωση ημερών
 async function loadDays() {
     const programId = programSelect.value;
