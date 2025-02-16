@@ -79,6 +79,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (emailDisplay) {
         emailDisplay.innerText = `Email: ${userEmail}`;
     }
-
+}
    
 
