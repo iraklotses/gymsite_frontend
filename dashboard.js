@@ -20,20 +20,19 @@ function logout() {
     window.location.href = "index.html";
 }
 
-    // Ανάκτηση email χρήστη από το localStorage
-    const userEmail = localStorage.getItem("userEmail");
+// ✅ Ανάκτηση email χρήστη από το localStorage
+const userEmail = localStorage.getItem("userEmail");
 
-    if (!userEmail) {
-        window.location.href = "index.html";
-        return; // Σταματάει την εκτέλεση του script
-    }
-
+if (!userEmail) {
+    window.location.href = "index.html";
+} else {
+    const emailDisplay = document.getElementById("emailDisplay"); // Πρέπει να οριστεί σωστά
     if (emailDisplay) {
         emailDisplay.innerText = `Email: ${userEmail}`;
     }
-    
-)}
+}
 
+// ✅ Φόρτωση ημερών
 async function loadDays() {
     const programId = programSelect.value;
     try {
@@ -53,6 +52,7 @@ async function loadDays() {
     }
 }
 
+// ✅ Φόρτωση ωρών
 async function loadTimes() {
     const programId = programSelect.value;
     const day = daySelect.value;
@@ -71,4 +71,3 @@ async function loadTimes() {
         console.error("Σφάλμα φόρτωσης ωρών:", error);
     }
 }
-
