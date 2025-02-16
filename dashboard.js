@@ -16,6 +16,7 @@ if (!userId) {
 // ✅ Φόρτωση προφίλ χρήστη
 async function loadUserProfile() {
     try {
+        console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
         const response = await fetch(`${API_URL}/profile?id=${userId}`);
         const data = await response.json();
 
