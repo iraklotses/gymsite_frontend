@@ -15,10 +15,22 @@ if (!userId) {
 
 // 🔥 Ζητάμε τα δεδομένα του χρήστη από το backend
 async function loadUserProfile() {
+    const userId = localStorage.getItem("user_id"); // Βεβαιώσου ότι υπάρχει
+    console.log("🔍 User ID που βρήκα από το localStorage:", userId);
+
+    if (!userId) {
+        console.error("❌ Δεν βρέθηκε user_id! Μεταφορά στο login...");
+        window.location.href = "index.html";
+        return;
+    }
+
     try {
         const response = await fetch(`${API_URL}/profile?id=${userId}`);
-        const data = await response.json();
+        console.log(`📡 Response status: ${response.status}`);
 
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const data = await response.json();
         console.log("ℹ️ Δεδομένα χρήστη:", data);
 
         if (data.error) {
