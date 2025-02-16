@@ -13,25 +13,6 @@ if (!userId) {
     loadUserProfile();
 }
 
-// 📌 LOGOUT FUNCTION
-function logout() {
-    localStorage.clear();
-    alert("👋 Αποσυνδεθήκατε!");
-    window.location.href = "index.html";
-}
-
-// ✅ Ανάκτηση email χρήστη από το localStorage
-const userEmail = localStorage.getItem("userEmail");
-
-if (!userEmail) {
-    window.location.href = "index.html";
-} else {
-    const emailDisplay = document.getElementById("emailDisplay"); // Πρέπει να οριστεί σωστά
-    if (emailDisplay) {
-        emailDisplay.innerText = `Email: ${userEmail}`;
-    }
-}
-
 // ✅ Φόρτωση προφίλ χρήστη
 async function loadUserProfile() {
     try {
@@ -64,7 +45,26 @@ async function loadUserProfile() {
     }
 }
 
-// ✅ Φόρτωση ημερών
+// 📌 LOGOUT FUNCTION
+function logout() {
+    localStorage.clear();
+    alert("👋 Αποσυνδεθήκατε!");
+    window.location.href = "index.html";
+}
+
+// ✅ Ανάκτηση email χρήστη από το localStorage
+const userEmail = localStorage.getItem("userEmail");
+
+if (!userEmail) {
+    window.location.href = "index.html";
+} else {
+    const emailDisplay = document.getElementById("emailDisplay");
+    if (emailDisplay) {
+        emailDisplay.innerText = `Email: ${userEmail}`;
+    }
+}
+
+// ✅ Φόρτωση ημερών προγράμματος
 async function loadDays() {
     const programId = programSelect.value;
     try {
@@ -84,7 +84,7 @@ async function loadDays() {
     }
 }
 
-// ✅ Φόρτωση ωρών
+// ✅ Φόρτωση ωρών προγράμματος
 async function loadTimes() {
     const programId = programSelect.value;
     const day = daySelect.value;
