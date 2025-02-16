@@ -411,5 +411,6 @@ async function loadPendingUsers() {
 // ❌ Αποσύνδεση
 function logout() {
     localStorage.removeItem("user_id");
+    alert("👋 Αποσυνδεθήκατε!");
     window.location.href = "index.html";
 }
