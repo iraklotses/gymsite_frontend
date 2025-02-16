@@ -64,23 +64,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     emailDisplay.innerText = userEmail;
 
-    // ✅ Φόρτωση προγραμμάτων
-    async function loadPrograms() {
-        try {
-            const response = await fetch("/api/programs");
-            const programs = await response.json();
-            programSelect.innerHTML = programs.map(p => `<option value="${p.id}">${p.name}</option>`).join("");
-            loadDays(); // Φόρτωση ημερών μόλις επιλεγεί πρόγραμμα
-        } catch (error) {
-            console.error("Σφάλμα φόρτωσης προγραμμάτων:", error);
-        }
-    }
 
     // ✅ Φόρτωση ημερών
     async function loadDays() {
         const programId = programSelect.value;
         try {
-            const response = await fetch(`/api/program_days?programId=${programId}`);
+            const response = await fetch(`/program_days?programId=${programId}`);
             const days = await response.json();
             daySelect.innerHTML = days.map(d => `<option value="${d.day_of_week}">${d.day_of_week}</option>`).join("");
             loadTimes(); // Φόρτωση ωρών μόλις επιλεγεί ημέρα
@@ -94,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const programId = programSelect.value;
         const day = daySelect.value;
         try {
-            const response = await fetch(`/api/program_times?programId=${programId}&day=${day}`);
+            const response = await fetch(`/program_times?programId=${programId}&day=${day}`);
             const times = await response.json();
             timeSelect.innerHTML = times.map(t => `<option value="${t.time}">${t.time}</option>`).join("");
         } catch (error) {
@@ -109,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const time = timeSelect.value;
 
         try {
-            const response = await fetch(`/api/check_availability?programId=${programId}&day=${day}&time=${time}`);
+            const response = await fetch(`/check_availability?programId=${programId}&day=${day}&time=${time}`);
             const data = await response.json();
 
             if (data.available) {
@@ -130,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const time = timeSelect.value;
 
         try {
-            const response = await fetch("/api/book_program", {
+            const response = await fetch("/book_program", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: userEmail, programId, day, time })
@@ -151,7 +140,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // ✅ Φόρτωση κρατήσεων χρήστη
     async function loadMyBookings() {
         try {
-            const response = await fetch(`/api/my_bookings?email=${userEmail}`);
+            const response = await fetch(`/my_bookings?email=${userEmail}`);
             const bookings = await response.json();
             myBookings.innerHTML = bookings.map(b => `<p>${b.program_name} - ${b.date} - ${b.time}</p>`).join("");
         } catch (error) {
