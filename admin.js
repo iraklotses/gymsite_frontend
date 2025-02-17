@@ -463,10 +463,8 @@ async function loadPendingUsers() {
     }
 }
 
-
     // Φόρτωση χρηστών στην αρχή
     loadPendingUsers();
-
 
 // ❌ Αποσύνδεση
 function logout() {
