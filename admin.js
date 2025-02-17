@@ -283,14 +283,24 @@ function deleteTrainer(id) {
     if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτόν τον γυμναστή;")) return;
 
     fetch(`${API_URL}/trainers/${id}`, { method: "DELETE" })
-        .then(response => response.json())
+        .then(async response => {
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+            }
+            return response.json().catch(() => ({})); // Αν δεν είναι valid JSON, επιστρέφουμε ένα κενό object
+        })
         .then(data => {
             if (data.error) throw new Error(data.error);
-            alert("Ο γυμναστής διαγράφηκε επιτυχώς!");
+            alert("✅ Ο γυμναστής διαγράφηκε επιτυχώς!");
             loadTrainers(); // Επαναφόρτωση της λίστας γυμναστών
         })
-        .catch(error => console.error("❌ Σφάλμα στη διαγραφή:", error));
+        .catch(error => {
+            console.error("❌ Σφάλμα στη διαγραφή:", error);
+            alert(`❌ Σφάλμα: ${error.message}`);
+        });
 }
+
 
 function deleteAnnouncement(id) {
     if (!id) {
