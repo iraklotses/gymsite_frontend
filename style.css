@@ -1,19 +1,98 @@
+/* 🎨 Γενικές ρυθμίσεις */
+:root {
+    --primary-color: #4CAF50; /* Πράσινο */
+    --secondary-color: #2E8B57; /* Σκούρο πράσινο */
+    --bg-color: #f4f4f4;
+    --text-color: #333;
+    --card-bg: #fff;
+    --border-radius: 8px;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* 📌 Κεντρικό container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔗 Header - Navbar */
+.navbar {
+    background: var(--primary-color);
+    padding: 15px 0;
     text-align: center;
-    background-color: #f4f4f4;
 }
 
-h1 {
-    color: #333;
-}
-
-a {
-    display: block;
-    margin: 10px;
-    padding: 10px;
-    background: blue;
+.navbar a {
     color: white;
     text-decoration: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    background: var(--secondary-color);
     border-radius: 5px;
+}
+
+/* 📌 Buttons */
+.button {
+    background: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: var(--secondary-color);
+}
+
+/* 📋 Cards (Προγράμματα, Χρήστες κτλ.) */
+.card {
+    background: var(--card-bg);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔄 Forms */
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* 📱 Responsive για κινητά */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+    
+    .navbar a {
+        display: block;
+        padding: 10px;
+    }
 }
