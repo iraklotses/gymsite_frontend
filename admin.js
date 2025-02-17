@@ -94,15 +94,29 @@ function addUser() {
     const name = prompt("Όνομα χρήστη:");
     const email = prompt("Email:");
     const role = prompt("Ρόλος (admin/user):");
+    const password = prompt("Κωδικός πρόσβασης:"); // ✅ Ζητάμε password
 
-    if (name && email && role) {
+    if (name && email && role && password) {
         fetch(`${API_URL}/users`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ full_name: name, email, role }) // Σωστό όνομα πεδίου
-        }).then(() => loadUsers());
+            body: JSON.stringify({ full_name: name, email, role, password }) // ✅ Στέλνουμε και το password
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert("❌ Σφάλμα: " + data.error);
+            } else {
+                alert("✅ Ο χρήστης προστέθηκε!");
+                loadUsers(); // Φόρτωσε ξανά τη λίστα των χρηστών
+            }
+        })
+        .catch(error => console.error("❌ Σφάλμα στο API:", error));
+    } else {
+        alert("❌ Όλα τα πεδία είναι υποχρεωτικά!");
     }
 }
+
 
 // ➕ Προσθήκη Γυμναστή
 function addTrainer() {
