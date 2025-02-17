@@ -205,19 +205,24 @@ async function loadAnnouncements() {
             return;
         }
 
-      announcements.forEach(announcement => {
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${announcement.title}</strong> <br>
-                    ID: ${announcement.id} <br>
-                    Ημερομηνία: ${announcement.created_at} <br>
-                    Περιγραφή: ${announcement.content}`;
-    announcementsList.appendChild(li);
-});
+    // ✅ Προσθήκη ανακοινώσεων στη λίστα με σωστή μορφή ημερομηνίας
+        announcements.forEach(announcement => {
+            const date = new Date(announcement.date);
+            const formattedDate = date.toLocaleDateString("el-GR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
 
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `<strong>${announcement.title}</strong><br>📅 Ημερομηνία: ${formattedDate}<br>${announcement.content}`;
+            announcementsList.appendChild(listItem);
+        });
 
     } catch (error) {
-        console.error("❌ Σφάλμα κατά τη φόρτωση των ανακοινώσεων:", error);
-        document.getElementById("announcementsList").innerHTML = "<li>⚠️ Αποτυχία φόρτωσης!</li>";
+        console.error("❌ Σφάλμα στη φόρτωση ανακοινώσεων:", error);
     }
 }
 
