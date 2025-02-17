@@ -1,10 +1,11 @@
 /* 🎨 Γενικές Ρυθμίσεις */
 :root {
-    --primary-color: #4CAF50;
-    --secondary-color: #2E8B57;
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --gradient: linear-gradient(135deg, #007bff, #0056b3);
     --bg-color: #f4f4f4;
     --text-color: #333;
-    --card-bg: #fff;
+    --card-bg: rgba(255, 255, 255, 0.15);
     --border-radius: 10px;
     --shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -17,50 +18,53 @@ body {
     padding: 0;
 }
 
-/* 📌 Κεντρικό container */
-.container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 20px auto;
-    padding: 20px;
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-}
-
-/* 🔗 Header - Navbar */
-.navbar {
-    background: var(--primary-color);
-    padding: 15px;
-    text-align: center;
+/* 📌 Hero Section */
+.hero {
+    background: url('gym-bg.jpg') no-repeat center center/cover;
+    height: 90vh;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 48px;
     font-weight: bold;
-    transition: 0.3s;
 }
 
-.navbar a:hover {
-    background: var(--secondary-color);
-    border-radius: 5px;
+.hero p {
+    font-size: 18px;
 }
 
-/* 📌 Buttons */
+/* 📌 Κουμπιά */
 .button {
-    background: var(--primary-color);
+    background: var(--gradient);
     color: white;
-    padding: 12px 18px;
+    padding: 12px 20px;
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 16px;
-    transition: all 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     box-shadow: var(--shadow);
 }
 
@@ -69,9 +73,10 @@ body {
     transform: scale(1.05);
 }
 
-/* 📋 Cards */
+/* 📋 Glassmorphism Cards */
 .card {
     background: var(--card-bg);
+    backdrop-filter: blur(10px);
     padding: 20px;
     margin: 15px 0;
     border-radius: var(--border-radius);
@@ -83,9 +88,9 @@ body {
     transform: translateY(-5px);
 }
 
-/* 🔄 Forms */
+/* 📄 Forms */
 form {
-    background: var(--card-bg);
+    background: white;
     padding: 20px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
@@ -108,16 +113,11 @@ input:focus, select:focus {
 
 /* 📱 Responsive */
 @media (max-width: 768px) {
+    .hero h1 {
+        font-size: 36px;
+    }
+
     .container {
         width: 95%;
-    }
-
-    .navbar {
-        flex-direction: column;
-    }
-
-    .button {
-        width: 100%;
-        text-align: center;
     }
 }
