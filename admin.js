@@ -250,34 +250,50 @@ function editAnnouncement(id) {
 
 
 function deleteProgram(id) {
-    if (confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτό το πρόγραμμα;")) {
-        console.log(`🗑️ Διαγραφή προγράμματος με ID: ${id}`);
-        console.log("🔗 API URL:", `${API_URL}/programs/${id}`);
-        
-        fetch(`${API_URL}/programs/${id}`, {
-            method: "DELETE"
+    if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτό το πρόγραμμα;")) return;
+
+    fetch(`${API_URL}/programs/${id}`, { method: "DELETE" })
+        .then(async response => {
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+            }
+            return response.json().catch(() => ({}));
         })
-        .then(response => response.json())
         .then(data => {
-            console.log("✅ Πρόγραμμα διαγράφηκε:", data);
-            loadPrograms(); // Επαναφόρτωση των δεδομένων
+            if (data.error) throw new Error(data.error);
+            alert("✅ Το πρόγραμμα διαγράφηκε επιτυχώς!");
+            loadPrograms(); // Επαναφόρτωση της λίστας προγραμμάτων
         })
-        .catch(error => console.error("❌ Σφάλμα στη διαγραφή:", error));
-    }
+        .catch(error => {
+            console.error("❌ Σφάλμα στη διαγραφή προγράμματος:", error);
+            alert(`❌ Σφάλμα: ${error.message}`);
+        });
 }
+
 
 function deleteUser(id) {
     if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτόν τον χρήστη;")) return;
 
     fetch(`${API_URL}/users/${id}`, { method: "DELETE" })
-        .then(response => response.json())
+        .then(async response => {
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+            }
+            return response.json().catch(() => ({}));
+        })
         .then(data => {
             if (data.error) throw new Error(data.error);
-            alert("Ο χρήστης διαγράφηκε επιτυχώς!");
+            alert("✅ Ο χρήστης διαγράφηκε επιτυχώς!");
             loadUsers(); // Επαναφόρτωση της λίστας χρηστών
         })
-        .catch(error => console.error("❌ Σφάλμα στη διαγραφή:", error));
+        .catch(error => {
+            console.error("❌ Σφάλμα στη διαγραφή χρήστη:", error);
+            alert(`❌ Σφάλμα: ${error.message}`);
+        });
 }
+
 
 function deleteTrainer(id) {
     if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτόν τον γυμναστή;")) return;
@@ -303,28 +319,27 @@ function deleteTrainer(id) {
 
 
 function deleteAnnouncement(id) {
-    if (!id) {
-        console.error("❌ Λάθος: Το ID της ανακοίνωσης είναι undefined!");
-        return;
-    }
+    if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτή την ανακοίνωση;")) return;
 
-    console.log(`🗑 Διαγραφή ανακοίνωσης με ID: ${id}`);
-
-    fetch(`${API_URL}/announcements/${id}`, {
-        method: "DELETE"
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("✅ Ανακοίνωση διαγράφηκε:", data);
-        loadAnnouncements(); // Επαναφόρτωση λίστας
-    })
-    .catch(error => console.error("❌ Σφάλμα στη διαγραφή ανακοίνωσης:", error));
+    fetch(`${API_URL}/announcements/${id}`, { method: "DELETE" })
+        .then(async response => {
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+            }
+            return response.json().catch(() => ({}));
+        })
+        .then(data => {
+            if (data.error) throw new Error(data.error);
+            alert("✅ Η ανακοίνωση διαγράφηκε επιτυχώς!");
+            loadAnnouncements(); // Επαναφόρτωση της λίστας ανακοινώσεων
+        })
+        .catch(error => {
+            console.error("❌ Σφάλμα στη διαγραφή ανακοίνωσης:", error);
+            alert(`❌ Σφάλμα: ${error.message}`);
+        });
 }
+
 
 async function loadPendingUsers() {
         tableBody.innerHTML = ""; // Καθαρισμός πίνακα
