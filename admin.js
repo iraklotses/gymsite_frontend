@@ -149,7 +149,8 @@ function addProgram() {
     // Δες τι δεδομένα στέλνονται
     console.log("📤 Αποστολή προγράμματος:", { name, trainer_id, day_of_week, time, max_capacity });
 
-    fetch(`${API_URL}/programs`, {
+    if (name && trainer_id && day_of_week && time && max_capacity) {
+        fetch(`${API_URL}/programs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, trainer_id, day_of_week, time, max_capacity })
