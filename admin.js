@@ -134,7 +134,38 @@ function addTrainer() {
 
 // ➕ Προσθήκη Προγράμματος
 function addProgram() {
+    const name = prompt("Όνομα προγράμματος:");
+    const trainer_id = Number(prompt("ID γυμναστή:")); // Μετατροπή σε αριθμό
+    const day_of_week = prompt("Ημέρα εβδομάδας (π.χ. Monday, Tuesday):");
+    const time = prompt("Ώρα (HH:MM:SS):");
+    const max_capacity = Number(prompt("Μέγιστη χωρητικότητα:"));
+
+    if (!name || !trainer_id || !day_of_week || !time || !max_capacity) {
+        alert("Όλα τα πεδία είναι υποχρεωτικά!");
+        return;
+    }
+
+    fetch(`${API_URL}/programs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, trainer_id, day_of_week, time, max_capacity })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert("❌ Σφάλμα: " + data.error);
+            console.error("Server error:", data.details);
+        } else {
+            alert("✅ Το πρόγραμμα προστέθηκε!");
+            loadPrograms(); // Φόρτωση των προγραμμάτων ξανά
+        }
+    })
+    .catch(error => {
+        console.error("❌ Σφάλμα προσθήκης προγράμματος:", error);
+        alert("Σφάλμα σύνδεσης με τον server!");
+    });
 }
+
 
 function addAnnouncement() {
     const title = prompt("Τίτλος ανακοίνωσης:");
