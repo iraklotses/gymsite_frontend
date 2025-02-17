@@ -136,18 +136,38 @@ function addTrainer() {
 function addProgram() {
     const name = prompt("Όνομα προγράμματος:");
     const trainer_id = prompt("ID γυμναστή:");
-    const day_of_week = prompt("Ημέρα εβδομάδας:");
+    const day_of_week = prompt("Ημέρα (Monday, Tuesday, ...):");
     const time = prompt("Ώρα (HH:MM:SS):");
     const max_capacity = prompt("Μέγιστη χωρητικότητα:");
 
-    if (name && trainer_id && day_of_week && time && max_capacity) {
-        fetch(`${API_URL}/programs`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, trainer_id, day_of_week, time, max_capacity }) // Σωστά πεδία
-        }).then(() => loadPrograms());
+    // Αν κάποιο πεδίο είναι άδειο, μην προχωρήσεις
+    if (!name || !trainer_id || !day_of_week || !time || !max_capacity) {
+        alert("❌ Συμπλήρωσε όλα τα πεδία!");
+        return;
     }
+
+    // Δες τι δεδομένα στέλνονται
+    console.log("📤 Αποστολή προγράμματος:", { name, trainer_id, day_of_week, time, max_capacity });
+
+    fetch(`${API_URL}/programs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, trainer_id, day_of_week, time, max_capacity })
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw new Error(err.error || "Σφάλμα στον server!"); });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("✅ Πρόγραμμα προστέθηκε:", data);
+        alert("✅ Το πρόγραμμα προστέθηκε!");
+        loadPrograms(); // Επαναφόρτωση της λίστας
+    })
+    .catch(error => console.error("❌ Σφάλμα προσθήκης προγράμματος:", error));
 }
+
 
 function addAnnouncement() {
     const title = prompt("Τίτλος ανακοίνωσης:");
