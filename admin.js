@@ -251,8 +251,39 @@ function editTrainer(id) {
 }
 
 
-function editProgram(id) {
+function editProgram(programId, oldName, oldTrainerId, oldDay, oldTime, oldCapacity) {
+    const name = prompt("Νέο όνομα προγράμματος:", oldName);
+    const trainer_id = Number(prompt("Νέο ID γυμναστή:", oldTrainerId)); // Μετατροπή σε αριθμό
+    const day_of_week = prompt("Νέα ημέρα εβδομάδας (π.χ. Monday, Tuesday):", oldDay);
+    const time = prompt("Νέα ώρα (HH:MM:SS):", oldTime);
+    const max_capacity = Number(prompt("Νέα μέγιστη χωρητικότητα:", oldCapacity));
+
+    if (!name || !trainer_id || !day_of_week || !time || !max_capacity) {
+        alert("Όλα τα πεδία είναι υποχρεωτικά!");
+        return;
+    }
+
+    fetch(`${API_URL}/programs/${programId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, trainer_id, day_of_week, time, max_capacity })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert("❌ Σφάλμα: " + data.error);
+            console.error("Server error:", data.details);
+        } else {
+            alert("✅ Το πρόγραμμα ενημερώθηκε!");
+            loadPrograms(); // Φόρτωση των προγραμμάτων ξανά
+        }
+    })
+    .catch(error => {
+        console.error("❌ Σφάλμα ενημέρωσης προγράμματος:", error);
+        alert("Σφάλμα σύνδεσης με τον server!");
+    });
 }
+
 
 function editAnnouncement(id) {
     const title = prompt("Νέος τίτλος ανακοίνωσης:");
