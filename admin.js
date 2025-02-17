@@ -167,8 +167,8 @@ function addProgram() {
         loadPrograms(); // Επαναφόρτωση της λίστας
     })
     .catch(error => console.error("❌ Σφάλμα προσθήκης προγράμματος:", error));
+    }
 }
-
 
 function addAnnouncement() {
     const title = prompt("Τίτλος ανακοίνωσης:");
