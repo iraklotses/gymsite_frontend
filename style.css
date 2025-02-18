@@ -27,7 +27,7 @@ h2 {
     flex-direction: column;
     align-items: center; /* Κεντράρει τα στοιχεία οριζόντια */
     justify-content: center; /* Αν χρειαστεί, κεντράρει και κάθετα */
-    width: 100%;
+    width: 50%;
 }
 
 /* Τα στοιχεία μέσα στις ενότητες να είναι επίσης κεντραρισμένα */
@@ -35,7 +35,7 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 50%;
 }
 
 .section li {
