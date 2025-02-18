@@ -162,16 +162,17 @@ button:hover {
     margin-top: 5px;
 }
 
-/* Στυλ για κάθε υπηρεσία & ανακοίνωση */
+/* Κουτιά υπηρεσιών και ανακοινώσεων */
 .list-item {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    border-radius: 10px;
-    width: 50%; /* Ορισμός πλάτους */
-    text-align: center;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
+    width: 40%; /* Προσαρμογή πλάτους */
+    max-width: 500px;
+    text-align: center; /* Κεντράρει το κείμενο */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Κεντράρει το περιεχόμενο */
+    justify-content: center; /* Κεντράρει κάθετα */
 }
+
 
 /* Φόρμες */
 form {
