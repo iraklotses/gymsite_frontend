@@ -19,7 +19,7 @@ async function loadUserProfile() {
         console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
         const response = fetch(`${API_URL}/profile?id=${userId}`);
         const data = response.json();
-
+//fetch(`${API_URL}/users/${id}`, ????????? //
         console.log("ℹ️ Δεδομένα χρήστη:", data);
 
         if (data.error) {
