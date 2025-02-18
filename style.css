@@ -21,17 +21,21 @@ h2 {
     margin-top: 20px;
 }
 
-/* Ενότητες (Υπηρεσίες & Ανακοινώσεις) */
+/* Κεντράρουμε τις ενότητες Υπηρεσίες & Ανακοινώσεις */
 .section {
     display: flex;
-    flex-direction: column; /* Τα περιεχόμενα θα εμφανίζονται κατακόρυφα */
-    align-items: center;
-    margin-bottom: 30px;
+    flex-direction: column;
+    align-items: center; /* Κεντράρει τα στοιχεία οριζόντια */
+    justify-content: center; /* Αν χρειαστεί, κεντράρει και κάθετα */
+    width: 100%;
 }
 
+/* Τα στοιχεία μέσα στις ενότητες να είναι επίσης κεντραρισμένα */
 .section ul {
-    padding-left: 0;
-    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .section li {
