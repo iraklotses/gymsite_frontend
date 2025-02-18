@@ -88,3 +88,66 @@ button {
 button:hover {
     background: #7D4EDE;
 }
+
+/* 🗃️ Στυλ για Πίνακες */
+table {
+    width: 100%;
+    max-width: 900px;
+    border-collapse: collapse;
+    background: #F4DCC1;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+/* 🎨 Στυλ Κεφαλίδας */
+th {
+    background: #925FF0; /* Μωβ */
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+}
+
+/* 📦 Στυλ για τα κελιά */
+td {
+    padding: 10px;
+    border-bottom: 1px solid #d1a58b;
+    color: #472F25;
+}
+
+/* 🔀 Εναλλαγή χρωμάτων στις σειρές */
+tr:nth-child(even) {
+    background: #E5C6A0;
+}
+
+tr:nth-child(odd) {
+    background: #F4DCC1;
+}
+
+/* 🎭 Στυλ για τα κουμπιά Ενεργειών */
+.action-btn {
+    background: #925FF0;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn:hover {
+    background: #7D4EDE;
+}
+
+/* 🖼️ Εικονίδια */
+.action-btn img {
+    width: 16px;
+    height: 16px;
+}
