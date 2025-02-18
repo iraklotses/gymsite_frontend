@@ -30,22 +30,25 @@ h2 {
     width: 100%;
 }
 
-/* Τα στοιχεία μέσα στις ενότητες να είναι επίσης κεντραρισμένα */
+/* Κεντράρισμα λίστας υπηρεσιών και ανακοινώσεων */
 .section ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    width: 50%; /* Ρύθμισε το πλάτος */
+    margin: 0 auto; /* Κεντράρει το στοιχείο στη σελίδα */
+    text-align: center; /* Κεντράρει το κείμενο */
 }
 
+/* Στυλ για τα πλαίσια των υπηρεσιών και ανακοινώσεων */
 .section li {
-    background: #f4e1c6; /* Ανοιχτό μπεζ */
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    width: 60%;
-    text-align: left;
+    background: #f4e1c6;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center; /* Αυτό εξασφαλίζει ότι το κείμενο είναι στο κέντρο */
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px auto; /* Διατηρεί το στοιχείο κεντραρισμένο */
 }
 
 /* Φόρμες */
