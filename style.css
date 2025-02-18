@@ -18,7 +18,7 @@ h1 {
 h2 {
     font-size: 22px;
     font-weight: bold;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 /* Ενότητες (Υπηρεσίες & Ανακοινώσεις) */
@@ -155,7 +155,7 @@ button:hover {
     align-items: center; /* Κεντρική στοίχιση */
     justify-content: center;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 /* Στυλ για κάθε υπηρεσία & ανακοίνωση */
@@ -166,7 +166,7 @@ button:hover {
     width: 50%; /* Ορισμός πλάτους */
     text-align: center;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 /* Φόρμες */
