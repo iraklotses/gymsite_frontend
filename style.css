@@ -91,3 +91,59 @@ button:hover {
     color: red;
     font-weight: bold;
 }
+
+/* Πίνακες */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #b38b6d;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #a663cc;
+    color: white;
+}
+
+td {
+    background-color: #fffaf3;
+}
+
+/* Κουμπιά */
+button {
+    background: #a663cc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #8e52b3;
+}
+
+/* Κουμπί αποσύνδεσης */
+.logout-btn {
+    background: #cc4b4b;
+}
+
+.logout-btn:hover {
+    background: #a63b3b;
+}
+
+/* Κουμπιά προσθήκης */
+.add-btn {
+    background: #4caf50;
+}
+
+.add-btn:hover {
+    background: #3d8b40;
+}
