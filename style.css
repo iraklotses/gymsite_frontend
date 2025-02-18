@@ -1,8 +1,8 @@
 /* Γενικές ρυθμίσεις */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e5c6a0; /* Μπεζ */
-    color: #3d2b1f;
+    background-color: #e5c6a0; /* Μπεζ φόντο */
+    color: #3d2b1f; /* Καφέ χρώμα κειμένου */
     text-align: center;
     margin: 0;
     padding: 20px;
@@ -12,6 +12,7 @@ body {
 h1 {
     font-size: 28px;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -20,25 +21,147 @@ h2 {
     margin-top: 40px;
 }
 
-/* Κεντρική στοίχιση υπηρεσιών και ανακοινώσεων */
-#servicesList, #announcementsList {
+/* Ενότητες (Υπηρεσίες & Ανακοινώσεις) */
+.section {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Τοποθέτηση στο κέντρο */
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
-    padding: 0;
+    flex-direction: column; /* Τα περιεχόμενα θα εμφανίζονται κατακόρυφα */
+    align-items: center;
+    margin-bottom: 30px;
 }
 
-/* Στυλ για κάθε υπηρεσία & ανακοίνωση */
-.list-item {
-    background: rgba(255, 255, 255, 0.9);
+.section ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.section li {
+    background: #f4e1c6; /* Ανοιχτό μπεζ */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    width: 60%;
+    text-align: left;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Φόρμες */
+form {
+    background: #f4e1c6;
     padding: 15px;
     border-radius: 10px;
-    width: 90%;
-    max-width: 500px; /* Περιορισμός πλάτους */
+    width: 50%;
+    margin: 10px auto;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input {
+    width: 80%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #b38b6d;
+    border-radius: 5px;
+    background: #fffaf3;
+}
+
+button {
+    background: #a663cc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    width: 85%;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #8e52b3;
+}
+
+/* Μήνυμα login */
+#loginMessage {
+    font-size: 16px;
+    color: red;
+    font-weight: bold;
+}
+
+/* Πίνακες */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #b38b6d;
+    padding: 10px;
     text-align: center;
+}
+
+th {
+    background-color: #a663cc;
+    color: white;
+}
+
+td {
+    background-color: #fffaf3;
+}
+
+/* Κουμπιά */
+button {
+    background: #a663cc;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #8e52b3;
+}
+
+/* Κουμπί αποσύνδεσης */
+.logout-btn {
+    background: #cc4b4b;
+}
+
+.logout-btn:hover {
+    background: #a63b3b;
+}
+
+/* Κουμπιά προσθήκης */
+.add-btn {
+    background: #4caf50;
+}
+
+.add-btn:hover {
+    background: #3d8b40;
+}
+
+/* Κουτιά υπηρεσιών και ανακοινώσεων ΚΑΙ CHECKPOINT*/
+.list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.list-item {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    width: 50%;
+    text-align: left;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
 }
@@ -48,26 +171,6 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 400px;
+    width: 50%;
     margin: auto;
-}
-
-/* Στυλ για input και κουμπιά */
-input, button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    background-color: purple;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #5a007a;
 }
