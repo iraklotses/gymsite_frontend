@@ -8,35 +8,48 @@
 </head>
 <body>
     <h1>Καλώς ήρθατε στο Gym Management System 💪</h1>
-    
-    <h2>Υπηρεσίες</h2>
-    <ul id="servicesList">Φόρτωση...</ul>
 
-    <h2>Ανακοινώσεις</h2>
-    <ul id="announcementsList">Φόρτωση...</ul>
+    <!-- Υπηρεσίες -->
+    <div class="section">
+        <h2>Υπηρεσίες</h2>
+        <ul id="servicesList">
+            <li>Φόρτωση...</li>
+        </ul>
+    </div>
 
+    <!-- Ανακοινώσεις -->
+    <div class="section">
+        <h2>Ανακοινώσεις</h2>
+        <ul id="announcementsList">
+            <li>Φόρτωση...</li>
+        </ul>
+    </div>
+
+    <!-- Σύνδεση Χρήστη -->
     <h2>Σύνδεση Χρήστη</h2>
     <form id="userLoginForm">
         <label for="userEmail">Email:</label>
         <input type="email" id="userEmail" required>
-        
+
         <label for="userPassword">Κωδικός:</label>
         <input type="password" id="userPassword" required>
-        
+
         <button type="submit">Σύνδεση ως Χρήστης</button>
     </form>
 
+    <!-- Σύνδεση Διαχειριστή -->
     <h2>Σύνδεση Διαχειριστή</h2>
     <form id="adminLoginForm">
         <label for="adminEmail">Email:</label>
         <input type="email" id="adminEmail" required>
-        
+
         <label for="adminPassword">Κωδικός:</label>
         <input type="password" id="adminPassword" required>
-        
+
         <button type="submit">Σύνδεση ως Διαχειριστής</button>
     </form>
 
+    <!-- Εγγραφή Νέου Χρήστη -->
     <h2>Εγγραφή Νέου Χρήστη</h2>
     <form id="registerForm">
         <label for="full_name">Ονοματεπώνυμο:</label>
