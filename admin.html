@@ -8,69 +8,84 @@
 </head>
 <body>
     <h1>🔧 Πίνακας Διαχείρισης</h1>
-    <button onclick="logout()">Αποσύνδεση</button>
+    <button class="logout-btn" onclick="logout()">Αποσύνδεση</button>
 
-    <h2>Εκκρεμείς Εγγραφές Χρηστών</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Όνομα</th>
-                <th>Email</th>
-                <th>Ενέργειες</th>
-            </tr>
-        </thead>
-        <tbody id="pendingUsersTable"></tbody>
-    </table>
+    <!-- Εκκρεμείς Εγγραφές Χρηστών -->
+    <div class="section">
+        <h2>Εκκρεμείς Εγγραφές Χρηστών</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Όνομα</th>
+                    <th>Email</th>
+                    <th>Ενέργειες</th>
+                </tr>
+            </thead>
+            <tbody id="pendingUsersTable"></tbody>
+        </table>
+    </div>
 
-    <h2>Διαχείριση Χρηστών</h2>
-    <button onclick="addUser()">➕ Προσθήκη Χρήστη</button>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Όνομα</th>
-                <th>Email</th>
-                <th>Ρόλος</th>
-                <th>Ενέργειες</th>
-            </tr>
-        </thead>
-        <tbody id="usersTable"></tbody>
-    </table>
+    <!-- Διαχείριση Χρηστών -->
+    <div class="section">
+        <h2>Διαχείριση Χρηστών</h2>
+        <button class="add-btn" onclick="addUser()">➕ Προσθήκη Χρήστη</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Όνομα</th>
+                    <th>Email</th>
+                    <th>Ρόλος</th>
+                    <th>Ενέργειες</th>
+                </tr>
+            </thead>
+            <tbody id="usersTable"></tbody>
+        </table>
+    </div>
 
-    <h2>Διαχείριση Γυμναστών</h2>
-    <button onclick="addTrainer()">➕ Προσθήκη Γυμναστή</button>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Όνομα</th>
-                <th>Ειδικότητα</th>
-                <th>Ενέργειες</th>
-            </tr>
-        </thead>
-        <tbody id="trainersTable"></tbody>
-    </table>
+    <!-- Διαχείριση Γυμναστών -->
+    <div class="section">
+        <h2>Διαχείριση Γυμναστών</h2>
+        <button class="add-btn" onclick="addTrainer()">➕ Προσθήκη Γυμναστή</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Όνομα</th>
+                    <th>Ειδικότητα</th>
+                    <th>Ενέργειες</th>
+                </tr>
+            </thead>
+            <tbody id="trainersTable"></tbody>
+        </table>
+    </div>
 
-    <h2>Διαχείριση Προγραμμάτων</h2>
-    <button onclick="addProgram()">➕ Προσθήκη Προγράμματος</button>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Όνομα</th>
-                <th>Μέγιστη Χωρητικότητα</th>
-                <th>Trainer ID</th>
-                <th>Ημέρα</th>
-                <th>Ώρα</th>
-                <th>Ενέργειες</th>
-            </tr>
-        </thead>
-        <tbody id="programsTable"></tbody>
-    </table>
+    <!-- Διαχείριση Προγραμμάτων -->
+    <div class="section">
+        <h2>Διαχείριση Προγραμμάτων</h2>
+        <button class="add-btn" onclick="addProgram()">➕ Προσθήκη Προγράμματος</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Όνομα</th>
+                    <th>Μέγιστη Χωρητικότητα</th>
+                    <th>Trainer ID</th>
+                    <th>Ημέρα</th>
+                    <th>Ώρα</th>
+                    <th>Ενέργειες</th>
+                </tr>
+            </thead>
+            <tbody id="programsTable"></tbody>
+        </table>
+    </div>
 
-    <h2>Ανακοινώσεις</h2>
-    <button onclick="addAnnouncement()">➕ Νέα Ανακοίνωση</button>
-    <ul id="announcementsList"></ul>
+    <!-- Ανακοινώσεις -->
+    <div class="section">
+        <h2>Ανακοινώσεις</h2>
+        <button class="add-btn" onclick="addAnnouncement()">➕ Νέα Ανακοίνωση</button>
+        <ul id="announcementsList"></ul>
+    </div>
 
     <script src="admin.js"></script>
 </body>
