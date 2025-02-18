@@ -17,8 +17,8 @@ if (!userId) {
 async function loadUserProfile() {
     try {
         console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
-        const response = await fetch(`${API_URL}/profile?id=${userId}`);
-        const data = await response.json();
+        const response = fetch(`${API_URL}/profile?id=${userId}`);
+        const data = response.json();
 
         console.log("ℹ️ Δεδομένα χρήστη:", data);
 
