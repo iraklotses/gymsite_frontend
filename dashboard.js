@@ -133,7 +133,7 @@ function reserveProgram(programId) {
         return;
     }
 
-    fetch("${API_URL}/reserve", { // ✅ Βάλε το σωστό backend URL
+    fetch(`${API_URL}/reserve`, { // ✅ Βάλε το σωστό backend URL
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, program_id: programId })
