@@ -126,37 +126,59 @@ document.addEventListener("DOMContentLoaded", loadPrograms);
 
 // Κάνει κράτηση για τον συνδεδεμένο χρήστη
 function reserveProgram(programId) {
-    const userId = localStorage.getItem("user_id"); // Αποθηκεύουμε το user_id κατά το login
+    const userId = localStorage.getItem("user_id");
 
-    fetch("/reserve", {
+    if (!userId) {
+        alert("Πρέπει να είστε συνδεδεμένος για να κάνετε κράτηση.");
+        return;
+    }
+
+    fetch("https://gymsite-backend.vercel.app/reserve", { // ✅ Βάλε το σωστό backend URL
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, program_id: programId })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Αποτυχία κράτησης.");
+        }
+        return response.json();
+    })
     .then(data => {
         alert(data.message);
-        loadPrograms(); // Ανανέωση προγραμμάτων
-        loadReservations(); // Ανανέωση ιστορικού
+        loadPrograms();      // ✅ Ανανέωση διαθέσιμων προγραμμάτων
+        loadReservations();  // ✅ Ανανέωση ιστορικού κρατήσεων
     })
     .catch(error => console.error("Σφάλμα κατά την κράτηση:", error));
 }
+
 
 // Φέρνει το ιστορικό κρατήσεων του χρήστη
 function loadReservations() {
     const userId = localStorage.getItem("user_id");
 
-    fetch(`/reservations/${userId}`)
-        .then(response => response.json())
+    if (!userId) {
+        console.error("❌ Δεν υπάρχει user_id στο localStorage.");
+        return;
+    }
+
+    fetch(`https://gymsite-backend.vercel.app/reservations/${userId}`) // ✅ Σωστό backend URL
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Αποτυχία φόρτωσης κρατήσεων.");
+            }
+            return response.json();
+        })
         .then(reservations => {
             const tableBody = document.getElementById("reservationsTable");
             tableBody.innerHTML = "";
+
             reservations.forEach(reservation => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td>${reservation.program_name}</td>
                     <td>${reservation.trainer_id}</td>
-                    <td>${reservation.day}</td>
+                    <td>${reservation.day_of_week}</td> <!-- ✅ Διόρθωση του πεδίου -->
                     <td>${reservation.time}</td>
                 `;
                 tableBody.appendChild(row);
