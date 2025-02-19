@@ -133,7 +133,7 @@ function reserveProgram(programId) {
         return;
     }
 
-    fetch("https://gymsite-backend.vercel.app/reserve", { // ✅ Βάλε το σωστό backend URL
+    fetch("/reserve", { // ✅ Βάλε το σωστό backend URL
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, program_id: programId })
@@ -162,7 +162,7 @@ function loadReservations() {
         return;
     }
 
-    fetch(`https://gymsite-backend.vercel.app/reservations/${userId}`) // ✅ Σωστό backend URL
+    fetch(`/reservations/${userId}`) // ✅ Σωστό backend URL
         .then(response => {
             if (!response.ok) {
                 throw new Error("Αποτυχία φόρτωσης κρατήσεων.");
