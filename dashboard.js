@@ -24,9 +24,9 @@ function loadUserProfile() {
         return;
     }
 
-    console.log(`📡 Κάνω fetch από: ${API_URL}/users/${userId}`);
+    console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
 
-    fetch(`${API_URL}/users/${userId}`)
+    fetch(`${API_URL}/profile?id=${userId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`❌ Σφάλμα HTTP! Status: ${response.status}`);
