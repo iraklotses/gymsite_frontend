@@ -83,7 +83,7 @@ if (!userEmail) {
 // Φέρνει τα διαθέσιμα προγράμματα και τα εμφανίζει
 async function loadPrograms() {
     try {
-        const response = await fetch("/programs"); // Χωρίς API_URL
+        const response = await fetch("https://gymsite-six.vercel.app/programs"); // Χωρίς API_URL
         const programs = await response.json();
 
         if (!Array.isArray(programs)) { // Σωστός έλεγχος
