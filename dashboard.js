@@ -124,15 +124,11 @@ async function loadPrograms() {
 // 🔥 Κάλεσέ το όταν φορτώσει η σελίδα
 document.addEventListener("DOMContentLoaded", loadPrograms);
 
-
-// 🔥 Κάλεσέ το όταν φορτώσει η σελίδα
-document.addEventListener("DOMContentLoaded", loadPrograms);
-
 // Κάνει κράτηση για τον συνδεδεμένο χρήστη
 function reserveProgram(programId) {
     const userId = localStorage.getItem("user_id"); // Αποθηκεύουμε το user_id κατά το login
 
-    fetch("/dashboard/reserve", {
+    fetch("/reserve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, program_id: programId })
@@ -150,7 +146,7 @@ function reserveProgram(programId) {
 function loadReservations() {
     const userId = localStorage.getItem("user_id");
 
-    fetch(`/dashboard/reservations/${userId}`)
+    fetch(`/reservations/${userId}`)
         .then(response => response.json())
         .then(reservations => {
             const tableBody = document.getElementById("reservationsTable");
