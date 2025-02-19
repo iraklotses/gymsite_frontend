@@ -122,7 +122,10 @@ async function loadPrograms() {
 }
 
 // 🔥 Κάλεσέ το όταν φορτώσει η σελίδα
-document.addEventListener("DOMContentLoaded", loadPrograms);
+document.addEventListener("DOMContentLoaded", () => {
+    loadPrograms();
+    loadReservations();  // ✅ Θα φορτώνει αυτόματα τις κρατήσεις
+});
 
 // Κάνει κράτηση για τον συνδεδεμένο χρήστη
 function reserveProgram(programId) {
