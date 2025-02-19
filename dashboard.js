@@ -80,11 +80,6 @@ if (!userEmail) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadPrograms();
-    loadReservations();
-});
-
 // Φέρνει τα διαθέσιμα προγράμματα και τα εμφανίζει
 function loadPrograms() {
     fetch("/dashboard/programs")
@@ -148,3 +143,8 @@ function loadReservations() {
         })
         .catch(error => console.error("Σφάλμα κατά τη φόρτωση του ιστορικού κρατήσεων:", error));
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadPrograms();
+    loadReservations();
+});
