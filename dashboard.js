@@ -86,23 +86,22 @@ async function loadPrograms() {
         const response = await fetch("/programs"); // Χωρίς API_URL
         const programs = await response.json();
 
-        // 🛑 Έλεγχος αν τα δεδομένα είναι έγκυρα
-        if (!Array.isArray(programs)) {
+        if (!Array.isArray(programs)) { // Σωστός έλεγχος
             console.error("❌ Invalid programs data:", programs);
             return;
         }
 
-        const table = document.getElementById("dashboardProgramsTable"); // Σωστό ID
+        const table = document.getElementById("dashboardProgramsTable"); // Έλεγξε το ID
 
         if (!table) {
             console.error("❌ Το στοιχείο dashboardProgramsTable δεν βρέθηκε στη σελίδα!");
             return;
         }
 
-        table.innerHTML = ""; // Καθαρισμός πριν προσθέσουμε νέες γραμμές
+        let rows = ""; // Συγκεντρώνουμε τις γραμμές
 
         programs.forEach(program => {
-            const row = `<tr>
+            rows += `<tr>
                 <td>${program.name}</td>
                 <td>${program.max_capacity}</td>
                 <td>${program.trainer_id}</td>
@@ -112,14 +111,19 @@ async function loadPrograms() {
                     <button onclick="reserveProgram(${program.id})">📅 Κράτηση</button>
                 </td>
             </tr>`;
-            table.innerHTML += row;
         });
+
+        table.innerHTML = rows; // Προσθήκη όλων των σειρών μαζί
 
         console.log("✅ Προγράμματα φορτώθηκαν επιτυχώς!");
     } catch (error) {
         console.error("❌ Σφάλμα φόρτωσης προγραμμάτων:", error);
     }
 }
+
+// 🔥 Κάλεσέ το όταν φορτώσει η σελίδα
+document.addEventListener("DOMContentLoaded", loadPrograms);
+
 
 // 🔥 Κάλεσέ το όταν φορτώσει η σελίδα
 document.addEventListener("DOMContentLoaded", loadPrograms);
