@@ -81,27 +81,48 @@ if (!userEmail) {
 }
 
 // Φέρνει τα διαθέσιμα προγράμματα και τα εμφανίζει
-function loadPrograms() {
-    fetch("/programs")
-        .then(response => response.json())
-        .then(programs => {
-            const tableBody = document.getElementById("programsTable");
-            tableBody.innerHTML = "";
-            programs.forEach(program => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${program.name}</td>
-                    <td>${program.max_capacity}</td>
-                    <td>${program.trainer_id}</td>
-                    <td>${program.day}</td>
-                    <td>${program.time}</td>
-                    <td><button onclick="reserveProgram(${program.id})">Κράτηση</button></td>
-                `;
-                tableBody.appendChild(row);
-            });
-        })
-        .catch(error => console.error("Σφάλμα κατά τη φόρτωση των προγραμμάτων:", error));
+async function loadPrograms() {
+    try {
+        const response = await fetch("/programs"); // Χωρίς API_URL
+        const programs = await response.json();
+
+        // 🛑 Έλεγχος αν τα δεδομένα είναι έγκυρα
+        if (!Array.isArray(programs)) {
+            console.error("❌ Invalid programs data:", programs);
+            return;
+        }
+
+        const table = document.getElementById("dashboardProgramsTable"); // Σωστό ID
+
+        if (!table) {
+            console.error("❌ Το στοιχείο dashboardProgramsTable δεν βρέθηκε στη σελίδα!");
+            return;
+        }
+
+        table.innerHTML = ""; // Καθαρισμός πριν προσθέσουμε νέες γραμμές
+
+        programs.forEach(program => {
+            const row = `<tr>
+                <td>${program.name}</td>
+                <td>${program.max_capacity}</td>
+                <td>${program.trainer_id}</td>
+                <td>${program.day_of_week}</td>
+                <td>${program.time}</td>
+                <td>
+                    <button onclick="reserveProgram(${program.id})">📅 Κράτηση</button>
+                </td>
+            </tr>`;
+            table.innerHTML += row;
+        });
+
+        console.log("✅ Προγράμματα φορτώθηκαν επιτυχώς!");
+    } catch (error) {
+        console.error("❌ Σφάλμα φόρτωσης προγραμμάτων:", error);
+    }
 }
+
+// 🔥 Κάλεσέ το όταν φορτώσει η σελίδα
+document.addEventListener("DOMContentLoaded", loadPrograms);
 
 // Κάνει κράτηση για τον συνδεδεμένο χρήστη
 function reserveProgram(programId) {
@@ -143,8 +164,3 @@ function loadReservations() {
         })
         .catch(error => console.error("Σφάλμα κατά τη φόρτωση του ιστορικού κρατήσεων:", error));
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadPrograms();
-    loadReservations();
-});
