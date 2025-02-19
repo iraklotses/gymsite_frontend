@@ -18,8 +18,8 @@ async function loadUserProfile() {
     try {
         console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
 
-        const response = await fetch(`${API_URL}/profile?id=${userId}`);
-        const data = await response.json(); // Χρειάζεται await!
+        const response = fetch(`${API_URL}/profile?id=${userId}`);
+        const data = response.json(); // Χρειάζεται await!
 
         console.log("ℹ️ Δεδομένα χρήστη:", data);
 
