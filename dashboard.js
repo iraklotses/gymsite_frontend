@@ -14,58 +14,52 @@ if (!userId) {
 }
 
 // ✅ Φόρτωση προφίλ χρήστη
-async function loadUserProfile() {
-    try {
-        console.log("🚀 Ξεκινάει η φόρτωση προφίλ...");
+function loadUserProfile() {
+    const userId = localStorage.getItem("user_id");
 
-        if (!userId) {
-            console.error("❌ Το userId είναι άδειο ή undefined!");
-            alert("⚠️ Πρόβλημα ταυτοποίησης. Παρακαλώ ξανασυνδεθείτε.");
-            window.location.href = "index.html";
-            return;
-        }
-
-        console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
-        const response = await fetch(`${API_URL}/profile?id=${userId}`);
-
-        console.log("🔄 Έλαβα απάντηση από τον server...");
-        console.log("📝 HTTP status:", response.status);
-
-        if (!response.ok) {
-            console.error("❌ Πρόβλημα με το response:", response.statusText);
-            alert("⚠️ Πρόβλημα στη φόρτωση των δεδομένων. Παρακαλώ ξανασυνδεθείτε.");
-            window.location.href = "index.html";
-            return;
-        }
-
-        const data = await response.json();
-        console.log("ℹ️ Δεδομένα χρήστη:", data);
-
-        if (data.error) {
-            console.error("❌ Σφάλμα στο profile:", data.error);
-            alert("❌ Πρόβλημα με τη φόρτωση των δεδομένων. Ξανακάνε login.");
-            localStorage.removeItem("user_id");
-            window.location.href = "index.html";
-            return;
-        }
-
-        const emailDisplay = document.getElementById("emailDisplay");
-        if (emailDisplay) {
-            emailDisplay.innerText = `Email: ${data.email}`;
-        } else {
-            console.error("❌ Το στοιχείο emailDisplay δεν βρέθηκε στη σελίδα!");
-        }
-
-        localStorage.setItem("userEmail", data.email);
-        console.log("✅ Το προφίλ φορτώθηκε επιτυχώς!");
-    } catch (err) {
-        console.error("❌ Σφάλμα στο fetch:", err);
-        alert("⚠️ Πρόβλημα επικοινωνίας με τον server!");
+    if (!userId) {
+        console.error("❌ Το userId είναι άδειο ή undefined!");
+        alert("⚠️ Πρόβλημα ταυτοποίησης. Παρακαλώ ξανασυνδεθείτε.");
         window.location.href = "index.html";
+        return;
     }
+
+    console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
+
+    fetch(`${API_URL}/profile?id=${userId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`❌ Σφάλμα HTTP! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("ℹ️ Δεδομένα χρήστη:", data);
+
+            if (data.error) {
+                console.error("❌ Σφάλμα στο profile:", data.error);
+                alert("❌ Πρόβλημα με τη φόρτωση των δεδομένων. Ξανακάνε login.");
+                localStorage.removeItem("user_id");
+                window.location.href = "index.html";
+                return;
+            }
+
+            const emailDisplay = document.getElementById("emailDisplay");
+            if (emailDisplay) {
+                emailDisplay.innerText = `Email: ${data.email}`;
+            } else {
+                console.error("❌ Το στοιχείο emailDisplay δεν βρέθηκε στη σελίδα!");
+            }
+
+            localStorage.setItem("userEmail", data.email);
+            console.log("✅ Το προφίλ φορτώθηκε επιτυχώς!");
+        })
+        .catch(error => {
+            console.error("❌ Σφάλμα στο fetch:", error);
+            alert("⚠️ Πρόβλημα επικοινωνίας με τον server!");
+            window.location.href = "index.html";
+        });
 }
-
-
 
 // 📌 LOGOUT FUNCTION
 function logout() {
