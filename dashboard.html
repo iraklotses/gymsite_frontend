@@ -7,13 +7,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>📅 Κρατήσεις Προγραμμάτων</h1>
 
-    <h1>Καλώς ήρθες στο Dashboard!</h1>
-    <p><span id="emailDisplay">Φόρτωση...</span></p>
-    
-    <button onclick="logout()">Αποσύνδεση</button>
+    <h2>Διαθέσιμα Προγράμματα</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Όνομα</th>
+                <th>Μέγιστη Χωρητικότητα</th>
+                <th>Trainer ID</th>
+                <th>Ημέρα</th>
+                <th>Ώρα</th>
+                <th>Ενέργεια</th>
+            </tr>
+        </thead>
+        <tbody id="programsTable"></tbody>
+    </table>
+
+    <h2>📜 Ιστορικό Κρατήσεων</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Όνομα</th>
+                <th>Trainer ID</th>
+                <th>Ημέρα</th>
+                <th>Ώρα</th>
+            </tr>
+        </thead>
+        <tbody id="reservationsTable"></tbody>
+    </table>
 
     <script src="dashboard.js"></script>
-
 </body>
 </html>
