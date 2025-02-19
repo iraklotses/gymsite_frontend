@@ -82,7 +82,7 @@ if (!userEmail) {
 
 // Φέρνει τα διαθέσιμα προγράμματα και τα εμφανίζει
 function loadPrograms() {
-    fetch("/dashboard/programs")
+    fetch("/programs")
         .then(response => response.json())
         .then(programs => {
             const tableBody = document.getElementById("programsTable");
