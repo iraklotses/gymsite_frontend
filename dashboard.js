@@ -64,3 +64,72 @@ if (!userEmail) {
         emailDisplay.innerText = `Email: ${userEmail}`;
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadPrograms();
+    loadReservations();
+});
+
+// Φέρνει τα διαθέσιμα προγράμματα και τα εμφανίζει
+function loadPrograms() {
+    fetch("/dashboard/programs")
+        .then(response => response.json())
+        .then(programs => {
+            const tableBody = document.getElementById("programsTable");
+            tableBody.innerHTML = "";
+            programs.forEach(program => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${program.name}</td>
+                    <td>${program.max_capacity}</td>
+                    <td>${program.trainer_id}</td>
+                    <td>${program.day}</td>
+                    <td>${program.time}</td>
+                    <td><button onclick="reserveProgram(${program.id})">Κράτηση</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error("Σφάλμα κατά τη φόρτωση των προγραμμάτων:", error));
+}
+
+// Κάνει κράτηση για τον συνδεδεμένο χρήστη
+function reserveProgram(programId) {
+    const userId = localStorage.getItem("user_id"); // Αποθηκεύουμε το user_id κατά το login
+
+    fetch("/dashboard/reserve", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: userId, program_id: programId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        loadPrograms(); // Ανανέωση προγραμμάτων
+        loadReservations(); // Ανανέωση ιστορικού
+    })
+    .catch(error => console.error("Σφάλμα κατά την κράτηση:", error));
+}
+
+// Φέρνει το ιστορικό κρατήσεων του χρήστη
+function loadReservations() {
+    const userId = localStorage.getItem("user_id");
+
+    fetch(`/dashboard/reservations/${userId}`)
+        .then(response => response.json())
+        .then(reservations => {
+            const tableBody = document.getElementById("reservationsTable");
+            tableBody.innerHTML = "";
+            reservations.forEach(reservation => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${reservation.program_name}</td>
+                    <td>${reservation.trainer_id}</td>
+                    <td>${reservation.day}</td>
+                    <td>${reservation.time}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error("Σφάλμα κατά τη φόρτωση του ιστορικού κρατήσεων:", error));
+}
