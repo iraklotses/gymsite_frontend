@@ -17,34 +17,35 @@ if (!userId) {
 async function loadUserProfile() {
     try {
         console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
-        const response = fetch(`${API_URL}/profile?id=${userId}`);
-        const data = response.json();
-//fetch(`${API_URL}/users/${id}`, ????????? //
+
+        const response = await fetch(`${API_URL}/profile?id=${userId}`);
+        const data = await response.json(); // Χρειάζεται await!
+
         console.log("ℹ️ Δεδομένα χρήστη:", data);
 
         if (data.error) {
             console.error("❌ Σφάλμα στο profile:", data.error);
             alert("❌ Πρόβλημα με τη φόρτωση των δεδομένων. Ξανακάνε login.");
-            localStorage.removeItem("user_id"); // Καθαρίζει το λάθος user_id
+            localStorage.removeItem("user_id");
             window.location.href = "index.html";
-        } else {
-            const emailDisplay = document.getElementById("emailDisplay");
-            
-            // ✅ Έλεγχος αν υπάρχει το στοιχείο πριν το χρησιμοποιήσουμε
-            if (emailDisplay) {
-                emailDisplay.innerText = `Email: ${data.email}`;
-            } else {
-                console.error("❌ Το στοιχείο emailDisplay δεν βρέθηκε στη σελίδα!");
-            }
-
-            localStorage.setItem("userEmail", data.email); // Αποθήκευση email
+            return; // Βγες από τη συνάρτηση
         }
+
+        const emailDisplay = document.getElementById("emailDisplay");
+        if (emailDisplay) {
+            emailDisplay.innerText = `Email: ${data.email}`;
+        } else {
+            console.error("❌ Το στοιχείο emailDisplay δεν βρέθηκε στη σελίδα!");
+        }
+
+        localStorage.setItem("userEmail", data.email);
     } catch (err) {
         console.error("❌ Σφάλμα στο fetch:", err);
         alert("⚠️ Πρόβλημα επικοινωνίας με τον server!");
         window.location.href = "index.html";
     }
 }
+
 
 // 📌 LOGOUT FUNCTION
 function logout() {
