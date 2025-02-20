@@ -1,5 +1,6 @@
 /* Εισαγωγή γραμματοσειρών */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Oswald:wght@500&display=swap');
 
 /* 🎨 Γενικές ρυθμίσεις */
 body {
@@ -33,9 +34,18 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 28px;
-    background-color: #7b4db7; /* Μοβ */
-    color: white;
+    font-family: 'Pacifico', cursive; /* Ή 'Oswald', sans-serif για πιο αθλητικό */
+    font-size: 36px;
+    background-color: #a8e6cf; /* Ανοιχτό πράσινο */
+    color: #3d2b1f; /* Καφέ χρώμα */
+    padding: 15px 30px;
+    border-radius: 12px;
+    display: inline-block; /* Να μην πιάνει όλο το πλάτος */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* Εφέ σκιάς */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Σκιά στο κείμενο */
+    letter-spacing: 1.5px; /* Απόσταση μεταξύ χαρακτήρων */
+    text-transform: uppercase; /* Κεφαλαία για έμφαση */
+    margin-top: 20px;
 }
 
 h2 {
