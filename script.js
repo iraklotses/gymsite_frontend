@@ -105,47 +105,6 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     }
 });
 
-
-// 📌 PROFILE FUNCTION (Dashboard)
-async function loadUserProfile() {
-    console.log("🔄 Φόρτωση προφίλ...");
-
-    const userId = localStorage.getItem("user_id");
-
-    if (!userId) {
-        alert("⚠️ Δεν είστε συνδεδεμένος!");
-        window.location.href = "login.html";
-        return;
-    }
-
-    try {
-        const response = await fetch(`${API_URL}/profile?id=${userId}`);
-
-        const userData = await response.json();
-
-        if (response.ok) {
-            console.log("✅ Ελήφθη το προφίλ:", userData);
-            document.getElementById("emailDisplay").innerText = userData.email;
-        } else {
-            console.error("❌ Σφάλμα στο profile:", userData);
-            alert("⚠️ Σφάλμα στη φόρτωση προφίλ!");
-            window.location.href = "login.html";
-        }
-    } catch (error) {
-        console.error("Σφάλμα κατά τη φόρτωση του προφίλ:", error);
-        alert("⚠️ Πρόβλημα επικοινωνίας με τον server!");
-        window.location.href = "login.html";
-    }
-}
-
-// 📌 LOGOUT FUNCTION
-function logout() {
-    localStorage.removeItem("user_id");
-    localStorage.removeItem("user_role");
-    alert("👋 Αποσυνδεθήκατε!");
-    window.location.href = "login.html";
-}
-
 // 📌 Φόρτωση Υπηρεσιών με debugging
 async function loadServices() {
     try {
