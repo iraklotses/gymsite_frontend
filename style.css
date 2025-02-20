@@ -8,6 +8,15 @@ body {
     padding: 20px;
 }
 
+.welcome-image {
+    display: block;
+    margin: 20px auto;
+    max-width: 80%;
+    height: auto;
+    border-radius: 10px; /* Στρογγυλεμένες γωνίες */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ελαφριά σκιά */
+}
+
 /* Τίτλοι */
 h1 {
     font-size: 28px;
