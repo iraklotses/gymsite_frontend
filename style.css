@@ -30,22 +30,6 @@ h2 {
     margin-top: 20px;
 }
 
-/* Όμορφη γραμματοσειρά για τους τίτλους */
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
-
-h3 {
-    font-family: 'Raleway', sans-serif; /* Μοντέρνα γραμματοσειρά */
-    font-size: 24px;
-    text-align: center; /* Κεντρική στοίχιση */
-    background-color: #7b4db7; /* Μοβ φόντο */
-    color: white; /* Λευκό κείμενο */
-    padding: 10px;
-    border-radius: 8px; /* Στρογγυλεμένες γωνίες */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Σκιά */
-    margin: 20px auto;
-    width: 60%;
-}
-
 /* Κεντράρουμε τις ενότητες Υπηρεσίες & Ανακοινώσεις */
 .section {
     display: flex;
