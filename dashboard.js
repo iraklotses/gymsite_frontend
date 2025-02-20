@@ -2,82 +2,11 @@ const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
 console.log("📌 Το dashboard.js φορτώθηκε!");
 
-// ✅ Έλεγχος αν υπάρχει αποθηκευμένο user_id
-const userId = localStorage.getItem("user_id");
-console.log("🔍 Βρέθηκε user_id:", userId);
-
-if (!userId) {
-    console.error("❌ Δεν βρέθηκε user_id! Μεταφορά στην αρχική σελίδα...");
-    window.location.href = "index.html"; // Σε γυρνάει πίσω στο login
-} else {
-    loadUserProfile();
-}
-
-// ✅ Φόρτωση προφίλ χρήστη
-function loadUserProfile() {
-    const userId = localStorage.getItem("user_id");
-
-    if (!userId) {
-        console.error("❌ Το userId είναι άδειο ή undefined!");
-        alert("⚠️ Πρόβλημα ταυτοποίησης. Παρακαλώ ξανασυνδεθείτε.");
-        window.location.href = "index.html";
-        return;
-    }
-
-    console.log(`📡 Κάνω fetch από: ${API_URL}/profile?id=${userId}`);
-
-    fetch(`${API_URL}/profile?id=${userId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`❌ Σφάλμα HTTP! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("ℹ️ Δεδομένα χρήστη:", data);
-
-            if (data.error) {
-                console.error("❌ Σφάλμα στο profile:", data.error);
-                alert("❌ Πρόβλημα με τη φόρτωση των δεδομένων. Ξανακάνε login.");
-                localStorage.removeItem("user_id");
-                window.location.href = "index.html";
-                return;
-            }
-
-            const emailDisplay = document.getElementById("emailDisplay");
-            if (emailDisplay) {
-                emailDisplay.innerText = `Email: ${data.email}`;
-            } else {
-                console.error("❌ Το στοιχείο emailDisplay δεν βρέθηκε στη σελίδα!");
-            }
-
-            localStorage.setItem("userEmail", data.email);
-            console.log("✅ Το προφίλ φορτώθηκε επιτυχώς!");
-        })
-        .catch(error => {
-            console.error("❌ Σφάλμα στο fetch:", error);
-            alert("⚠️ Πρόβλημα επικοινωνίας με τον server!");
-            window.location.href = "index.html";
-        });
-}
-
 // 📌 LOGOUT FUNCTION
 function logout() {
     localStorage.clear();
     alert("👋 Αποσυνδεθήκατε!");
     window.location.href = "index.html";
-}
-
-// ✅ Ανάκτηση email χρήστη από το localStorage
-const userEmail = localStorage.getItem("userEmail");
-
-if (!userEmail) {
-    window.location.href = "index.html";
-} else {
-    const emailDisplay = document.getElementById("emailDisplay");
-    if (emailDisplay) {
-        emailDisplay.innerText = `Email: ${userEmail}`;
-    }
 }
 
 // Φέρνει τα διαθέσιμα προγράμματα και τα εμφανίζει
