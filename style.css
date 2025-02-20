@@ -1,6 +1,9 @@
-/* Γενικές ρυθμίσεις */
+/* Εισαγωγή γραμματοσειρών */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400&display=swap');
+
+/* 🎨 Γενικές ρυθμίσεις */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #e5c6a0; /* Μπεζ φόντο */
     color: #3d2b1f; /* Καφέ χρώμα κειμένου */
     text-align: center;
@@ -8,6 +11,7 @@ body {
     padding: 20px;
 }
 
+/* 🏋️‍♂️ Εικόνα Καλωσορίσματος */
 .welcome-image {
     display: block;
     margin: 20px auto;
@@ -17,50 +21,59 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ελαφριά σκιά */
 }
 
-/* Τίτλοι */
+/* 🏷️ Στυλ για τους ΤΙΤΛΟΥΣ */
+h1, h2 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    width: 60%;
+    margin: 20px auto;
+}
+
 h1 {
     font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
+    background-color: #7b4db7; /* Μοβ */
+    color: white;
 }
 
 h2 {
     font-size: 22px;
-    font-weight: bold;
-    margin-top: 20px;
+    background-color: #a663cc; /* Λίγο πιο ανοιχτό μοβ */
+    color: white;
 }
 
-/* Κεντράρουμε τις ενότητες Υπηρεσίες & Ανακοινώσεις */
+/* 📌 ΣΤΟΙΧΙΣΗ Υπηρεσιών & Ανακοινώσεων */
 .section {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Κεντράρει τα στοιχεία οριζόντια */
-    justify-content: center; /* Αν χρειαστεί, κεντράρει και κάθετα */
+    align-items: center;
+    justify-content: center;
     width: 100%;
 }
 
-/* Κεντράρισμα λίστας υπηρεσιών και ανακοινώσεων */
+/* 🔹 Στυλ για τις λίστες */
 .section ul {
     list-style-type: none;
     padding: 0;
-    width: 50%; /* Ρύθμισε το πλάτος */
-    margin: 0 auto; /* Κεντράρει το στοιχείο στη σελίδα */
-    text-align: center; /* Κεντράρει το κείμενο */
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
 }
 
-/* Στυλ για τα πλαίσια των υπηρεσιών και ανακοινώσεων */
+/* 📦 Κουτιά λιστών */
 .section li {
     background: #f4e1c6;
     padding: 15px;
     border-radius: 10px;
     width: 100%;
     max-width: 400px;
-    text-align: center; /* Αυτό εξασφαλίζει ότι το κείμενο είναι στο κέντρο */
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 10px auto; /* Διατηρεί το στοιχείο κεντραρισμένο */
+    margin: 10px auto;
 }
 
-/* Φόρμες */
+/* 📝 Φόρμες */
 form {
     background: #f4e1c6;
     padding: 15px;
@@ -70,45 +83,43 @@ form {
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-input {
-    width: 80%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #b38b6d;
-    border-radius: 5px;
-    background: #fffaf3;
-}
-
+/* 🔘 Κουμπιά */
 button {
     background: #a663cc;
     color: white;
     font-weight: bold;
     border: none;
-    padding: 10px;
+    padding: 12px;
     width: 85%;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+    transition: background 0.3s ease-in-out;
 }
 
 button:hover {
     background: #8e52b3;
 }
 
-/* Μήνυμα login */
-#loginMessage {
-    font-size: 16px;
-    color: red;
-    font-weight: bold;
+/* ❌ Κουμπί αποσύνδεσης */
+.logout-btn {
+    background: #cc4b4b;
 }
 
-/* Πίνακες */
+.logout-btn:hover {
+    background: #a63b3b;
+}
+
+/* ➕ Κουμπιά προσθήκης */
+.add-btn {
+    background: #4caf50;
+}
+
+.add-btn:hover {
+    background: #3d8b40;
+}
+
+/* 📋 Πίνακες */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -130,67 +141,22 @@ td {
     background-color: #fffaf3;
 }
 
-/* Κουμπιά */
-button {
-    background: #a663cc;
-    color: white;
-    font-weight: bold;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: #8e52b3;
-}
-
-/* Κουμπί αποσύνδεσης */
-.logout-btn {
-    background: #cc4b4b;
-}
-
-.logout-btn:hover {
-    background: #a63b3b;
-}
-
-/* Κουμπιά προσθήκης */
-.add-btn {
-    background: #4caf50;
-}
-
-.add-btn:hover {
-    background: #3d8b40;
-}
-
-/* Κουτιά υπηρεσιών και ανακοινώσεων ΚΑΙ CHECKPOINT*/
+/* 📦 Κουτιά υπηρεσιών & ανακοινώσεων */
 .list-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Κεντρική στοίχιση */
-    justify-content: center;
+    align-items: center;
     width: 100%;
     margin-top: 5px;
 }
 
-/* Κουτιά υπηρεσιών και ανακοινώσεων */
+/* 📌 Σωστή διάταξη λιστών */
 .list-item {
-    width: 40%; /* Προσαρμογή πλάτους */
+    width: 40%;
     max-width: 500px;
-    text-align: center; /* Κεντράρει το κείμενο */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Κεντράρει το περιεχόμενο */
-    justify-content: center; /* Κεντράρει κάθετα */
-}
-
-
-/* Φόρμες */
-form {
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-    margin: auto;
+    justify-content: center;
 }
