@@ -205,18 +205,36 @@ async function loadAnnouncements() {
             return;
         }
 
-      announcements.forEach(announcement => {
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${announcement.title}</strong> <br>
-                    ID: ${announcement.id} <br>
-                    Ημερομηνία: ${announcement.created_at} <br>
-                    Περιγραφή: ${announcement.content}`;
-    announcementsList.appendChild(li);
-});
+        announcements.forEach(announcement => {
+            const li = document.createElement("li");
 
+            // ✅ Μορφοποίηση ημερομηνίας
+            const formattedDate = formatDate(announcement.created_at);
 
+            li.innerHTML = `<strong>${announcement.title}</strong> <br>
+                            <span style="color: gray; font-size: 14px;">🗓️ ${formattedDate}</span> <br>
+                            <p>${announcement.content}</p>`;
+
+            announcementsList.appendChild(li);
+        });
     } catch (error) {
-        console.error("❌ Σφάλμα κατά τη φόρτωση των ανακοινώσεων:", error);
-        document.getElementById("announcementsList").innerHTML = "<li>⚠️ Αποτυχία φόρτωσης!</li>";
+        console.error("❌ Σφάλμα στη φόρτωση των ανακοινώσεων:", error);
+        document.getElementById("announcementsList").innerHTML = "<li>⚠️ Πρόβλημα με τη φόρτωση των ανακοινώσεων.</li>";
     }
 }
+
+// ✅ Συνάρτηση για μορφοποίηση ημερομηνίας (π.χ. 16 Φεβρουαρίου 2025)
+function formatDate(isoString) {
+    const months = [
+        "Ιανουαρίου", "Φεβρουαρίου", "Μαρτίου", "Απριλίου", "Μαΐου", "Ιουνίου",
+        "Ιουλίου", "Αυγούστου", "Σεπτεμβρίου", "Οκτωβρίου", "Νοεμβρίου", "Δεκεμβρίου"
+    ];
+
+    const date = new Date(isoString);
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${day} ${month} ${year}`;
+}
+
