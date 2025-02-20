@@ -141,17 +141,16 @@ function reserveProgram(programId) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, program_id: programId })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Αποτυχία κράτησης.");
-        }
-        return response.json();
-    })
-    .then(data => {
-        alert(data.message);
-        loadPrograms();      // ✅ Ανανέωση διαθέσιμων προγραμμάτων
-        loadReservations();  // ✅ Ανανέωση ιστορικού κρατήσεων
-    })
+    .then(response => response.json())
+.then(data => {
+    if (!data.success) {
+        alert(data.error); // Δείχνει "Πλήρες πρόγραμμα" αν δεν υπάρχει διαθεσιμότητα
+        return;
+    }
+    alert(data.message); // Εμφανίζει επιτυχές μήνυμα κράτησης
+    loadPrograms();
+    loadReservations();
+})
     .catch(error => console.error("Σφάλμα κατά την κράτηση:", error));
 }
 
