@@ -181,7 +181,7 @@ function loadReservations() {
                 row.innerHTML = `
                     <td>${reservation.program_name}</td>
                     <td>${reservation.trainer_id}</td>
-                    <td>${reservation.day_of_week}</td> <!-- ✅ Διόρθωση του πεδίου -->
+                    <td>${reservation.day}</td> <!-- ✅ Διόρθωση του πεδίου -->
                     <td>${reservation.time}</td>
                 `;
                 tableBody.appendChild(row);
