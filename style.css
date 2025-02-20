@@ -83,16 +83,42 @@ h2 {
     margin: 10px auto;
 }
 
-/* 📝 Φόρμες */
+/* Στυλ για τις φόρμες */
 form {
-    background: #f4e1c6;
-    padding: 15px;
-    border-radius: 10px;
+    background: #f4e1c6; /* Απαλό μπεζ φόντο */
+    padding: 20px;
+    border-radius: 10px; /* Στρογγυλεμένες γωνίες */
     width: 50%;
-    margin: 10px auto;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* Ελαφριά σκιά */
 }
 
+/* Στυλ για τα labels */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #5a3d2b; /* Καφέ χρώμα */
+}
+
+/* Στυλ για τα input πεδία */
+input {
+    width: 90%;
+    padding: 10px;
+    border: 2px solid #b38b6d; /* Καφέ περίγραμμα */
+    border-radius: 8px;
+    background: #fffaf3;
+    font-size: 16px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+/* Όταν ο χρήστης κάνει κλικ σε ένα input πεδίο */
+input:focus {
+    border-color: #6ab04c; /* Ανοιχτό πράσινο */
+    box-shadow: 0 0 8px rgba(106, 176, 76, 0.5);
+    outline: none;
+}
 /* 🔘 Κουμπιά */
 button {
     background: #a663cc;
