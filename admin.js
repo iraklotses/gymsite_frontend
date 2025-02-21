@@ -1,7 +1,7 @@
 const API_URL = "https://gymsite-six.vercel.app";
 const tableBody = document.getElementById("pendingUsersTable");
 
-// 🔄 Φόρτωση Δεδομένων
+// Φόρτωση Δεδομένων
 document.addEventListener("DOMContentLoaded", async () => {
     loadUsers();
     loadTrainers();
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadAnnouncements();
 });
 
-// 🏋️ Φόρτωση Χρηστών
+// Φόρτωση Χρηστών
 async function loadUsers() {
     const response = await fetch(`${API_URL}/users`);
     const users = await response.json();
@@ -31,7 +31,7 @@ async function loadUsers() {
     });
 }
 
-// 🏋️ Φόρτωση Γυμναστών
+//  Φόρτωση Γυμναστών
 async function loadTrainers() {
     const response = await fetch(`${API_URL}/trainers`);
     const trainers = await response.json();
@@ -59,7 +59,7 @@ async function loadTrainers() {
 }
 
 
-// 📅 Φόρτωση Προγραμμάτων
+// Φόρτωση Προγραμμάτων
 async function loadPrograms() {
     const response = await fetch(`${API_URL}/programs`);
     const programs = await response.json();
@@ -70,7 +70,7 @@ async function loadPrograms() {
         return;
     }
 
-    table.innerHTML = ""; // Καθαρισμός πριν προσθέσουμε νέες γραμμές
+    table.innerHTML = ""; 
 
     programs.forEach(program => {
         const row = `<tr>
@@ -89,36 +89,36 @@ async function loadPrograms() {
 }
 
 
-// ➕ Προσθήκη Χρήστη
+// Προσθήκη Χρήστη
 function addUser() {
     const name = prompt("Όνομα χρήστη:");
     const email = prompt("Email:");
     const role = prompt("Ρόλος (admin/user):");
-    const password = prompt("Κωδικός πρόσβασης:"); // ✅ Ζητάμε password
+    const password = prompt("Κωδικός πρόσβασης:"); 
 
     if (name && email && role && password) {
         fetch(`${API_URL}/users`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ full_name: name, email, role, password }) // ✅ Στέλνουμε και το password
+            body: JSON.stringify({ full_name: name, email, role, password }) 
         })
         .then(response => response.json())
         .then(data => {
             if (data.error) {
-                alert("❌ Σφάλμα: " + data.error);
+                alert(" Σφάλμα: " + data.error);
             } else {
-                alert("✅ Ο χρήστης προστέθηκε!");
-                loadUsers(); // Φόρτωσε ξανά τη λίστα των χρηστών
+                alert(" Ο χρήστης προστέθηκε!");
+                loadUsers(); 
             }
         })
-        .catch(error => console.error("❌ Σφάλμα στο API:", error));
+        .catch(error => console.error(" Σφάλμα στο API:", error));
     } else {
-        alert("❌ Όλα τα πεδία είναι υποχρεωτικά!");
+        alert(" Όλα τα πεδία είναι υποχρεωτικά!");
     }
 }
 
 
-// ➕ Προσθήκη Γυμναστή
+// Προσθήκη Γυμναστή
 function addTrainer() {
     const name = prompt("Όνομα γυμναστή:");
     const specialty = prompt("Ειδικότητα:");
@@ -127,12 +127,12 @@ function addTrainer() {
         fetch(`${API_URL}/trainers`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ full_name: name, specialty }) // Σωστό όνομα πεδίου
+            body: JSON.stringify({ full_name: name, specialty }) 
         }).then(() => loadTrainers());
     }
 }
 
-// ➕ Προσθήκη Προγράμματος
+// Προσθήκη Προγράμματος
 function addProgram() {
     const name = prompt("Όνομα προγράμματος:");
     const trainer_id = Number(prompt("ID γυμναστή:")); // Μετατροπή σε αριθμό
@@ -153,20 +153,20 @@ function addProgram() {
     .then(response => response.json())
     .then(data => {
         if (data.error) {
-            alert("❌ Σφάλμα: " + data.error);
+            alert(" Σφάλμα: " + data.error);
             console.error("Server error:", data.details);
         } else {
-            alert("✅ Το πρόγραμμα προστέθηκε!");
-            loadPrograms(); // Φόρτωση των προγραμμάτων ξανά
+            alert(" Το πρόγραμμα προστέθηκε!");
+            loadPrograms(); 
         }
     })
     .catch(error => {
-        console.error("❌ Σφάλμα προσθήκης προγράμματος:", error);
+        console.error(" Σφάλμα προσθήκης προγράμματος:", error);
         alert("Σφάλμα σύνδεσης με τον server!");
     });
 }
 
-
+//Προσθήκη Ανακοινώσεων
 function addAnnouncement() {
     const title = prompt("Τίτλος ανακοίνωσης:");
     const content = prompt("Περιεχόμενο ανακοίνωσης:");
@@ -175,22 +175,22 @@ function addAnnouncement() {
         fetch(`${API_URL}/announcements`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, content }) // Τα σωστά πεδία
-        }).then(() => loadAnnouncements()); // Επαναφόρτωση λίστας ανακοινώσεων
+            body: JSON.stringify({ title, content }) 
+        }).then(() => loadAnnouncements()); 
     }
 }
 
 
-// 📣 Φόρτωση Ανακοινώσεων
+// Φόρτωση Ανακοινώσεων
 function loadAnnouncements() {
     fetch(`${API_URL}/announcements`)
         .then(response => response.json())
         .then(announcements => {
             const announcementsList = document.getElementById("announcementsList");
-            announcementsList.innerHTML = ""; // Καθαρισμός πριν την προσθήκη
+            announcementsList.innerHTML = ""; 
 
             announcements.forEach(announcement => {
-                // Δημιουργία στοιχείου <li> για κάθε ανακοίνωση
+                
                 const li = document.createElement("li");
                 li.innerHTML = `
                     <strong>Ημερομηνία:</strong> ${announcement.created_at} <br>
@@ -203,9 +203,7 @@ function loadAnnouncements() {
         .catch(error => console.error("❌ Σφάλμα φόρτωσης ανακοινώσεων:", error));
 }
 
-
-
-
+//Επεξεργασία Χρήστη
 function editUser(id) {
     const full_name = prompt("Νέο όνομα χρήστη:");
     const email = prompt("Νέο email χρήστη:");
@@ -220,6 +218,7 @@ function editUser(id) {
     }
 }
 
+//Επεξεργασία Γυμναστή
 function editTrainer(id) {
     const full_name = prompt("Νέο όνομα γυμναστή:");
     const specialty = prompt("Νέα ειδικότητα:");
@@ -242,7 +241,7 @@ function editTrainer(id) {
     })
     .then(data => {
         alert("Ο γυμναστής ενημερώθηκε επιτυχώς!");
-        loadTrainers(); // Επαναφόρτωση της λίστας των trainers
+        loadTrainers(); 
     })
     .catch(error => {
         console.error("Error updating trainer:", error);
@@ -250,10 +249,10 @@ function editTrainer(id) {
     });
 }
 
-
+//Επεξεργασία Προγραμμάτων
 function editProgram(programId, oldName, oldTrainerId, oldDay, oldTime, oldCapacity) {
     const name = prompt("Νέο όνομα προγράμματος:", oldName);
-    const trainer_id = Number(prompt("Νέο ID γυμναστή:", oldTrainerId)); // Μετατροπή σε αριθμό
+    const trainer_id = Number(prompt("Νέο ID γυμναστή:", oldTrainerId)); 
     const day_of_week = prompt("Νέα ημέρα εβδομάδας (π.χ. Monday, Tuesday):", oldDay);
     const time = prompt("Νέα ώρα (HH:MM:SS):", oldTime);
     const max_capacity = Number(prompt("Νέα μέγιστη χωρητικότητα:", oldCapacity));
@@ -271,11 +270,11 @@ function editProgram(programId, oldName, oldTrainerId, oldDay, oldTime, oldCapac
     .then(response => response.json())
     .then(data => {
         if (data.error) {
-            alert("❌ Σφάλμα: " + data.error);
+            alert(" Σφάλμα: " + data.error);
             console.error("Server error:", data.details);
         } else {
-            alert("✅ Το πρόγραμμα ενημερώθηκε!");
-            loadPrograms(); // Φόρτωση των προγραμμάτων ξανά
+            alert(" Το πρόγραμμα ενημερώθηκε!");
+            loadPrograms();
         }
     })
     .catch(error => {
@@ -284,7 +283,7 @@ function editProgram(programId, oldName, oldTrainerId, oldDay, oldTime, oldCapac
     });
 }
 
-
+//Επεξεργασία ανακοινώσεων
 function editAnnouncement(id) {
     const title = prompt("Νέος τίτλος ανακοίνωσης:");
     const content = prompt("Νέο περιεχόμενο:");
@@ -298,7 +297,7 @@ function editAnnouncement(id) {
     }
 }
 
-
+//Διαγραφή προγράμματος
 function deleteProgram(id) {
     if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτό το πρόγραμμα;")) return;
 
@@ -312,16 +311,16 @@ function deleteProgram(id) {
         })
         .then(data => {
             if (data.error) throw new Error(data.error);
-            alert("✅ Το πρόγραμμα διαγράφηκε επιτυχώς!");
-            loadPrograms(); // Επαναφόρτωση της λίστας προγραμμάτων
+            alert(" Το πρόγραμμα διαγράφηκε επιτυχώς!");
+            loadPrograms(); 
         })
         .catch(error => {
-            console.error("❌ Σφάλμα στη διαγραφή προγράμματος:", error);
-            alert(`❌ Σφάλμα: ${error.message}`);
+            console.error(" Σφάλμα στη διαγραφή προγράμματος:", error);
+            alert(` Σφάλμα: ${error.message}`);
         });
 }
 
-
+//Διαγραφή Χρήστη
 function deleteUser(id) {
     if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτόν τον χρήστη;")) return;
 
@@ -335,16 +334,16 @@ function deleteUser(id) {
         })
         .then(data => {
             if (data.error) throw new Error(data.error);
-            alert("✅ Ο χρήστης διαγράφηκε επιτυχώς!");
-            loadUsers(); // Επαναφόρτωση της λίστας χρηστών
+            alert(" Ο χρήστης διαγράφηκε επιτυχώς!");
+            loadUsers(); 
         })
         .catch(error => {
-            console.error("❌ Σφάλμα στη διαγραφή χρήστη:", error);
-            alert(`❌ Σφάλμα: ${error.message}`);
+            console.error(" Σφάλμα στη διαγραφή χρήστη:", error);
+            alert(` Σφάλμα: ${error.message}`);
         });
 }
 
-
+//Διαγραφή γυμναστή
 function deleteTrainer(id) {
     if (!confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτόν τον γυμναστή;")) return;
 
@@ -354,16 +353,16 @@ function deleteTrainer(id) {
                 const errorText = await response.text();
                 throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
             }
-            return response.json().catch(() => ({})); // Αν δεν είναι valid JSON, επιστρέφουμε ένα κενό object
+            return response.json().catch(() => ({})); 
         })
         .then(data => {
             if (data.error) throw new Error(data.error);
-            alert("✅ Ο γυμναστής διαγράφηκε επιτυχώς!");
-            loadTrainers(); // Επαναφόρτωση της λίστας γυμναστών
+            alert(" Ο γυμναστής διαγράφηκε επιτυχώς!");
+            loadTrainers(); 
         })
         .catch(error => {
-            console.error("❌ Σφάλμα στη διαγραφή:", error);
-            alert(`❌ Σφάλμα: ${error.message}`);
+            console.error(" Σφάλμα στη διαγραφή:", error);
+            alert(` Σφάλμα: ${error.message}`);
         });
 }
 
@@ -381,18 +380,18 @@ function deleteAnnouncement(id) {
         })
         .then(data => {
             if (data.error) throw new Error(data.error);
-            alert("✅ Η ανακοίνωση διαγράφηκε επιτυχώς!");
-            loadAnnouncements(); // Επαναφόρτωση της λίστας ανακοινώσεων
+            alert(" Η ανακοίνωση διαγράφηκε επιτυχώς!");
+            loadAnnouncements(); 
         })
         .catch(error => {
-            console.error("❌ Σφάλμα στη διαγραφή ανακοίνωσης:", error);
-            alert(`❌ Σφάλμα: ${error.message}`);
+            console.error(" Σφάλμα στη διαγραφή ανακοίνωσης:", error);
+            alert(` Σφάλμα: ${error.message}`);
         });
 }
 
 
 async function loadPendingUsers() {
-        tableBody.innerHTML = ""; // Καθαρισμός πίνακα
+        tableBody.innerHTML = ""; 
 
         try {
             const response = await fetch("https://gymsite-six.vercel.app/pending_users");
@@ -417,9 +416,9 @@ async function loadPendingUsers() {
         }
     }
 
-    // 🔹 Έγκριση χρήστη (approve) και ανάθεση ρόλου
+    // Έγκριση χρήστη και ανάθεση ρόλου
    async function approveUser(userId, role) {
-    console.log("Approving user:", { userId, role }); // 🔍 Debugging
+    console.log("Approving user:", { userId, role });
 
     if (!userId || !role) {
         alert("Σφάλμα: Το userId ή το role λείπει!");
@@ -448,9 +447,9 @@ async function loadPendingUsers() {
 }
 
 
-    // 🔹 Απόρριψη χρήστη (reject)
+// Απόρριψη χρήστη
    async function rejectUser(userId) {
-    console.log("Rejecting user:", userId); // 🔍 Debugging
+    console.log("Rejecting user:", userId); 
 
     if (!userId) {
         alert("Σφάλμα: Λείπει το userId!");
@@ -478,10 +477,9 @@ async function loadPendingUsers() {
     }
 }
 
-    // Φόρτωση χρηστών στην αρχή
     loadPendingUsers();
 
-// ❌ Αποσύνδεση
+// Αποσύνδεση
 function logout() {
     localStorage.removeItem("user_id");
     alert("👋 Αποσυνδεθήκατε!");
