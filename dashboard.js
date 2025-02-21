@@ -2,7 +2,7 @@ const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
 console.log("📌 Το dashboard.js φορτώθηκε!");
 
-// 📌 LOGOUT FUNCTION
+// LOGOUT FUNCTION
 function logout() {
     localStorage.clear();
     alert("👋 Αποσυνδεθήκατε!");
@@ -12,22 +12,22 @@ function logout() {
 // Φέρνει τα διαθέσιμα προγράμματα και τα εμφανίζει
 async function loadPrograms() {
     try {
-        const response = await fetch("https://gymsite-six.vercel.app/programs"); // Χωρίς API_URL
+        const response = await fetch("https://gymsite-six.vercel.app/programs"); 
         const programs = await response.json();
 
-        if (!Array.isArray(programs)) { // Σωστός έλεγχος
+        if (!Array.isArray(programs)) { 
             console.error("❌ Invalid programs data:", programs);
             return;
         }
 
-        const table = document.getElementById("dashboardProgramsTable"); // Έλεγξε το ID
+        const table = document.getElementById("dashboardProgramsTable"); // Έλεγχος το ID
 
         if (!table) {
             console.error("❌ Το στοιχείο dashboardProgramsTable δεν βρέθηκε στη σελίδα!");
             return;
         }
 
-        let rows = ""; // Συγκεντρώνουμε τις γραμμές
+        let rows = ""; 
 
         programs.forEach(program => {
             rows += `<tr>
@@ -42,7 +42,7 @@ async function loadPrograms() {
             </tr>`;
         });
 
-        table.innerHTML = rows; // Προσθήκη όλων των σειρών μαζί
+        table.innerHTML = rows; 
 
         console.log("✅ Προγράμματα φορτώθηκαν επιτυχώς!");
     } catch (error) {
@@ -50,10 +50,9 @@ async function loadPrograms() {
     }
 }
 
-// 🔥 Κάλεσέ το όταν φορτώσει η σελίδα
 document.addEventListener("DOMContentLoaded", () => {
     loadPrograms();
-    loadReservations();  // ✅ Θα φορτώνει αυτόματα τις κρατήσεις
+    loadReservations(); 
 });
 
 // Κάνει κράτηση για τον συνδεδεμένο χρήστη
@@ -65,7 +64,7 @@ function reserveProgram(programId) {
         return;
     }
 
-    fetch(`${API_URL}/reserve`, { // ✅ Βάλε το σωστό backend URL
+    fetch(`${API_URL}/reserve`, { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, program_id: programId })
@@ -93,7 +92,7 @@ function loadReservations() {
         return;
     }
 
-    fetch(`${API_URL}/reservations/${userId}`) // ✅ Σωστό backend URL
+    fetch(`${API_URL}/reservations/${userId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Αποτυχία φόρτωσης κρατήσεων.");
