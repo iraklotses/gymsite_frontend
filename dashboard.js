@@ -1,6 +1,6 @@
 const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
-console.log("📌 Το dashboard.js φορτώθηκε!");
+console.log(" Το dashboard.js φορτώθηκε!");
 
 // LOGOUT FUNCTION
 function logout() {
@@ -16,14 +16,14 @@ async function loadPrograms() {
         const programs = await response.json();
 
         if (!Array.isArray(programs)) { 
-            console.error("❌ Invalid programs data:", programs);
+            console.error(" Invalid programs data:", programs);
             return;
         }
 
-        const table = document.getElementById("dashboardProgramsTable"); // Έλεγχος το ID
+        const table = document.getElementById("dashboardProgramsTable"); // Έλεγχος στο ID
 
         if (!table) {
-            console.error("❌ Το στοιχείο dashboardProgramsTable δεν βρέθηκε στη σελίδα!");
+            console.error(" Το στοιχείο dashboardProgramsTable δεν βρέθηκε στη σελίδα!");
             return;
         }
 
@@ -44,9 +44,9 @@ async function loadPrograms() {
 
         table.innerHTML = rows; 
 
-        console.log("✅ Προγράμματα φορτώθηκαν επιτυχώς!");
+        console.log(" Προγράμματα φορτώθηκαν επιτυχώς!");
     } catch (error) {
-        console.error("❌ Σφάλμα φόρτωσης προγραμμάτων:", error);
+        console.error(" Σφάλμα φόρτωσης προγραμμάτων:", error);
     }
 }
 
@@ -88,7 +88,7 @@ function loadReservations() {
     const userId = localStorage.getItem("user_id");
 
     if (!userId) {
-        console.error("❌ Δεν υπάρχει user_id στο localStorage.");
+        console.error(" Δεν υπάρχει user_id στο localStorage.");
         return;
     }
 
@@ -108,7 +108,7 @@ function loadReservations() {
                 row.innerHTML = `
                     <td>${reservation.program_name}</td>
                     <td>${reservation.trainer_id}</td>
-                    <td>${reservation.day}</td> <!-- ✅ Διόρθωση του πεδίου -->
+                    <td>${reservation.day}</td> <!--  Διόρθωση του πεδίου -->
                     <td>${reservation.time}</td>
                 `;
                 tableBody.appendChild(row);
