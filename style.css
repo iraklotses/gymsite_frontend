@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bangers:wght@500&display=swap');
 
-/* 🎨 Γενικές ρυθμίσεις */
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #e5c6a0; /* Μπεζ φόντο */
@@ -12,7 +12,7 @@ body {
     padding: 20px;
 }
 
-/* 🏋️‍♂️ Εικόνα Καλωσορίσματος */
+/* Εικόνα Καλωσορίσματος */
 .welcome-image {
     display: block;
     margin: 20px auto;
@@ -22,7 +22,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ελαφριά σκιά */
 }
 
-/* 🏷️ Στυλ για τους ΤΙΤΛΟΥΣ */
+/* Στυλ για τους ΤΙΤΛΟΥΣ */
 h1, h2 {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
@@ -54,7 +54,7 @@ h2 {
     color: #3d2b1f;
 }
 
-/* 📌 ΣΤΟΙΧΙΣΗ Υπηρεσιών & Ανακοινώσεων */
+/* ΣΤΟΙΧΙΣΗ Υπηρεσιών & Ανακοινώσεων */
 .section {
     display: flex;
     flex-direction: column;
@@ -63,7 +63,7 @@ h2 {
     width: 100%;
 }
 
-/* 🔹 Στυλ για τις λίστες */
+/* Στυλ για τις λίστες */
 .section ul {
     list-style-type: none;
     padding: 0;
@@ -72,7 +72,7 @@ h2 {
     text-align: center;
 }
 
-/* 📦 Κουτιά λιστών */
+/* Κουτιά λιστών */
 .section li {
     background: #f4e1c6;
     padding: 15px;
@@ -113,7 +113,7 @@ input {
     transition: 0.3s;
 }
 
-/* Όταν ο χρήστης κάνει κλικ σε ένα input πεδίο */
+/* Κλικ σε ένα input πεδίο */
 input:focus {
     border-color: #6ab04c; /* Ανοιχτό πράσινο */
     box-shadow: 0 0 8px rgba(106, 176, 76, 0.5);
@@ -138,7 +138,7 @@ button:hover {
     background: #8e52b3; /* Σκούρο μωβ */
 }
 
-/* ❌ Κουμπί αποσύνδεσης */
+/* Κουμπί αποσύνδεσης */
 .logout-btn {
     background: #cc4b4b;
 }
@@ -147,7 +147,7 @@ button:hover {
     background: #a63b3b;
 }
 
-/* ➕ Κουμπιά προσθήκης */
+/* Κουμπιά προσθήκης */
 .add-btn {
     background: #4caf50;
 }
@@ -156,7 +156,7 @@ button:hover {
     background: #3d8b40;
 }
 
-/* 📋 Πίνακες */
+/* Πίνακες */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -178,7 +178,7 @@ td {
     background-color: #fffaf3;
 }
 
-/* 📦 Κουτιά υπηρεσιών & ανακοινώσεων */
+/* Κουτιά υπηρεσιών & ανακοινώσεων */
 .list-container {
     display: flex;
     flex-direction: column;
@@ -187,7 +187,7 @@ td {
     margin-top: 5px;
 }
 
-/* 📌 Σωστή διάταξη λιστών */
+/* Σωστή διάταξη λιστών */
 .list-item {
     width: 40%;
     max-width: 500px;
