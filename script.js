@@ -2,7 +2,6 @@ const API_URL = "https://gymsite-six.vercel.app"; // Backend URL
 
 console.log("Το script.js φορτώθηκε!");
 
-// 📌 LOGIN FUNCTION
 document.addEventListener("DOMContentLoaded", () => {
     const userLoginForm = document.getElementById("userLoginForm");
     const adminLoginForm = document.getElementById("adminLoginForm");
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// 📌 Handle Login Function
+// Handle Login
 async function handleLogin(email, password, expectedRole) {
     try {
         const response = await fetch(`${API_URL}/login`, {
@@ -47,7 +46,7 @@ async function handleLogin(email, password, expectedRole) {
                 localStorage.setItem("user_id", result.user.id);
                 localStorage.setItem("user_role", result.user.role);
 
-                alert("✅ Επιτυχής σύνδεση!");
+                alert(" Επιτυχής σύνδεση!");
                 
                 if (expectedRole === "user") {
                     window.location.href = "dashboard.html";
@@ -55,23 +54,23 @@ async function handleLogin(email, password, expectedRole) {
                     window.location.href = "admin.html";
                 }
             } else {
-                alert("❌ Δεν έχετε πρόσβαση σε αυτό το τμήμα!");
+                alert(" Δεν έχετε πρόσβαση σε αυτό το τμήμα!");
             }
         } else {
-            alert("❌ Λάθος στοιχεία!");
+            alert(" Λάθος στοιχεία!");
         }
     } catch (error) {
         console.error("Σφάλμα στο fetch:", error);
-        alert("⚠️ Πρόβλημα σύνδεσης στον server!");
+        alert("⚠ Πρόβλημα σύνδεσης στον server!");
     }
 }
 
-    // 🔄 Φόρτωση Υπηρεσιών και Ανακοινώσεων
+    // Φόρτωση Υπηρεσιών και Ανακοινώσεων
     loadServices();
     loadAnnouncements();
 
 document.getElementById("registerForm").addEventListener("submit", async function(event) {
-    event.preventDefault(); // Αποτρέπει το default submit
+    event.preventDefault();
 
     const full_name = document.getElementById("full_name").value;
     const email = document.getElementById("email").value;
@@ -95,7 +94,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         const result = await response.json();
         if (response.ok) {
             alert("Επιτυχής εγγραφή! Περιμένετε έγκριση από τον διαχειριστή.");
-            document.getElementById("registerForm").reset(); // Καθαρίζει τη φόρμα
+            document.getElementById("registerForm").reset(); 
         } else {
             alert("Σφάλμα: " + result.error);
         }
@@ -105,19 +104,19 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     }
 });
 
-// 📌 Φόρτωση Υπηρεσιών με debugging
+//  Φόρτωση Υπηρεσιών 
 async function loadServices() {
     try {
-        console.log("🔄 Ζητάμε υπηρεσίες από:", `${API_URL}/services`);
+        console.log(" Ζητάμε υπηρεσίες από:", `${API_URL}/services`);
         const response = await fetch(`${API_URL}/services`);
-        console.log("📩 Απάντηση από server:", response);
+        console.log(" Απάντηση από server:", response);
 
         if (!response.ok) {
             throw new Error(`Server returned ${response.status}`);
         }
 
         const services = await response.json();
-        console.log("✅ Ληφθείσες υπηρεσίες:", services);
+        console.log(" Ληφθείσες υπηρεσίες:", services);
 
         const servicesList = document.getElementById("servicesList");
         servicesList.innerHTML = "";
@@ -136,30 +135,30 @@ async function loadServices() {
             servicesList.appendChild(li);
         });
     } catch (error) {
-        console.error("❌ Σφάλμα κατά τη φόρτωση των υπηρεσιών:", error);
-        document.getElementById("servicesList").innerHTML = "<li>⚠️ Αποτυχία φόρτωσης!</li>";
+        console.error(" Σφάλμα κατά τη φόρτωση των υπηρεσιών:", error);
+        document.getElementById("servicesList").innerHTML = "<li> Αποτυχία φόρτωσης!</li>";
     }
 }
 
-// 📌 Φόρτωση Ανακοινώσεων
+// Φόρτωση Ανακοινώσεων
 async function loadAnnouncements() {
     try {
-        console.log("🔄 Ζητάμε ανακοινώσεις από:", `${API_URL}/announcements`);
+        console.log(" Ζητάμε ανακοινώσεις από:", `${API_URL}/announcements`);
         const response = await fetch(`${API_URL}/announcements`);
-        console.log("📩 Απάντηση από server:", response);
+        console.log(" Απάντηση από server:", response);
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const announcements = await response.json();
-        console.log("✅ Ανακοινώσεις που λήφθηκαν:", announcements);
+        console.log(" Ανακοινώσεις που λήφθηκαν:", announcements);
 
         const announcementsList = document.getElementById("announcementsList");
         announcementsList.innerHTML = "";
 
         if (announcements.length === 0) {
-            console.log("⚠️ Δεν υπάρχουν ανακοινώσεις!");
+            console.log("⚠ Δεν υπάρχουν ανακοινώσεις!");
             announcementsList.innerHTML = "<li>Δεν υπάρχουν ανακοινώσεις.</li>";
             return;
         }
@@ -167,7 +166,7 @@ async function loadAnnouncements() {
         announcements.forEach(announcement => {
             const li = document.createElement("li");
 
-            // ✅ Μορφοποίηση ημερομηνίας
+            // Μορφοποίηση ημερομηνίας
             const formattedDate = formatDate(announcement.created_at);
 
             li.innerHTML = `<strong>${announcement.title}</strong> <br>
@@ -177,12 +176,12 @@ async function loadAnnouncements() {
             announcementsList.appendChild(li);
         });
     } catch (error) {
-        console.error("❌ Σφάλμα στη φόρτωση των ανακοινώσεων:", error);
-        document.getElementById("announcementsList").innerHTML = "<li>⚠️ Πρόβλημα με τη φόρτωση των ανακοινώσεων.</li>";
+        console.error(" Σφάλμα στη φόρτωση των ανακοινώσεων:", error);
+        document.getElementById("announcementsList").innerHTML = "<li> Πρόβλημα με τη φόρτωση των ανακοινώσεων.</li>";
     }
 }
 
-// ✅ Συνάρτηση για μορφοποίηση ημερομηνίας (π.χ. 16 Φεβρουαρίου 2025)
+// Μορφοποίηση ημερομηνίας (π.χ. 16 Φεβρουαρίου 2025)
 function formatDate(isoString) {
     const months = [
         "Ιανουαρίου", "Φεβρουαρίου", "Μαρτίου", "Απριλίου", "Μαΐου", "Ιουνίου",
