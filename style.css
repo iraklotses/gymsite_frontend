@@ -35,17 +35,23 @@ h1, h2 {
 
 h1 {
     font-family: 'Bangers', cursive; /* Ή 'Oswald', sans-serif για πιο αθλητικό */
-    font-size: 36px;
+    font-size: clamp(24px, 6vw, 36px); /* Δυναμική προσαρμογή του μεγέθους */
     background-color: #a8e6cf; /* Ανοιχτό πράσινο */
     color: #3d2b1f; /* Καφέ χρώμα */
-    padding: 15px 30px;
+    padding: 15px;
     border-radius: 12px;
-    display: inline-block; /* Να μην πιάνει όλο το πλάτος */
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* Εφέ σκιάς */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Σκιά στο κείμενο */
-    letter-spacing: 3px; /* Απόσταση μεταξύ χαρακτήρων */
-    text-transform: uppercase; /* Κεφαλαία για έμφαση */
-    margin-top: 20px;
+    display: block; /* Να καταλαμβάνει όλο το διαθέσιμο πλάτος */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px; /* Μικρότερη απόσταση μεταξύ χαρακτήρων */
+    text-transform: uppercase;
+    margin: 20px auto;
+    width: 90%; /* Αφήνει περιθώρια δεξιά-αριστερά */
+    max-width: 600px; /* Όριο για να μη γίνει υπερβολικά μεγάλο */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal; /* Επιτρέπει το wrapping */
+    text-align: center;
 }
 
 h2 {
