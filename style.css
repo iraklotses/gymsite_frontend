@@ -34,23 +34,23 @@ h1, h2 {
 }
 
 h1 {
-    font-family: 'Bangers', cursive; /* Ή 'Oswald', sans-serif για πιο αθλητικό */
-    font-size: clamp(24px, 6vw, 36px); /* Δυναμική προσαρμογή του μεγέθους */
+    font-family: 'Bangers', cursive; 
+    font-size: clamp(24px, 6vw, 36px); 
     background-color: #a8e6cf; /* Ανοιχτό πράσινο */
     color: #3d2b1f; /* Καφέ χρώμα */
     padding: 15px;
     border-radius: 12px;
-    display: block; /* Να καταλαμβάνει όλο το διαθέσιμο πλάτος */
+    display: block; 
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    letter-spacing: 1px; /* Μικρότερη απόσταση μεταξύ χαρακτήρων */
+    letter-spacing: 1px; /* απόσταση μεταξύ χαρακτήρων */
     text-transform: uppercase;
     margin: 20px auto;
     width: 90%; /* Αφήνει περιθώρια δεξιά-αριστερά */
     max-width: 600px; /* Όριο για να μη γίνει υπερβολικά μεγάλο */
     word-wrap: break-word;
     overflow-wrap: break-word;
-    white-space: normal; /* Επιτρέπει το wrapping */
+    white-space: normal; 
     text-align: center;
 }
 
